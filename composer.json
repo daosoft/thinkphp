@@ -1,0 +1,44 @@
+{
+    "name": "openphp/openphp",
+    "type": "project",
+    "description": "the openphp framework",
+    "keywords": [
+        "framework",
+        "openphp",
+        "php"
+    ],
+    "homepage": "https://github.com/openphp/openphp",
+    "license": "Apache-2.0",
+    "require": {
+        "php": "^8.0",
+        "topthink/framework": "^6.0",
+        "topthink/think-orm": "^2.0",
+        "topthink/think-captcha": "^3.0",
+        "topthink/think-swoole": "3.0.x-dev",
+        "topthink/think-view": "^1.0",
+        "topthink/think-queue": "^3.0",
+        "topthink/think-migration": "^3.0",
+        "topthink/think-image": "^1.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php artisan service:discover",
+            "@php artisan vendor:publish"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
