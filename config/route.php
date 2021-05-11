@@ -39,4 +39,8 @@ return [
     'default_jsonp_handler' => 'jsonpReturn',
     // 默认JSONP处理方法
     'var_jsonp_handler' => 'callback',
+    // 默认模块
+    'default_route' => 'web',
+    // 路由映射
+    'route_mapper' => ['console' => 'admin'],
 ];
