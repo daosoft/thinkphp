@@ -45,6 +45,6 @@ class AuthController extends Controller
      */
     public function loginHandler(Request $request): Json
     {
-        return $this->succeed('login');
+        return $this->succeed('user login');
     }
 }

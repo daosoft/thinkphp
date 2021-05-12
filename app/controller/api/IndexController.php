@@ -16,6 +16,6 @@ class IndexController extends Controller
      */
     public function index(): Json
     {
-        return $this->succeed('ok');
+        return $this->succeed('api data');
     }
 }
