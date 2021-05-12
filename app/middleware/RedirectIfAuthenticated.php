@@ -16,9 +16,10 @@ class RedirectIfAuthenticated
      *
      * @param \think\Request $request
      * @param \Closure $next
+     * @param string $guard
      * @return Response
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $guard)
     {
         return $next($request);
     }

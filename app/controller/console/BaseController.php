@@ -3,6 +3,7 @@
 namespace app\controller\console;
 
 use app\controller\Controller;
+use app\middleware\Authenticate;
 
 /**
  * Class BaseController
@@ -10,4 +11,10 @@ use app\controller\Controller;
  */
 class BaseController extends Controller
 {
+    /**
+     * @var array|string[]
+     */
+    protected array $middleware = [
+        [Authenticate::class, ['admin']],
+    ];
 }
