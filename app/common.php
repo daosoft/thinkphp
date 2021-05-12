@@ -11,7 +11,7 @@ const USER_GUARD = 'user';
 function routeRule()
 {
     Route::get(':c/:a', ':c/:a');
-    Route::post(':c/:a', ':c/:aHandler');
+    Route::post(':c/:a', ':c/:aHandler')->token();
     Route::get(':c', ':c/index');
     Route::get('/', 'Index/index');
 }
