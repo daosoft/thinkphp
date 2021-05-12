@@ -6,6 +6,7 @@ use app\response\JsonResponse;
 use think\App;
 use think\exception\ValidateException;
 use think\Request;
+use think\response\View;
 use think\Validate;
 
 /**
@@ -39,6 +40,11 @@ abstract class Controller
      * @var array
      */
     protected array $middleware = [];
+
+    /**
+     * @var array
+     */
+    protected array $vars = [];
 
     /**
      * 构造方法
@@ -96,5 +102,45 @@ abstract class Controller
         }
 
         return $v->failException(true)->check($data);
+    }
+
+    /**
+     * @param $name
+     * @param $value
+     */
+    protected function assign($name, $value)
+    {
+        $this->vars = array_merge($this->vars, [$name => $value]);
+    }
+
+    /**
+     * @param string $template
+     * @param array $vars
+     * @return \think\response\View
+     */
+    protected function display(string $template = '', array $vars = []): View
+    {
+        if (!empty($vars)) {
+            $this->vars = array_merge($this->vars, $vars);
+        }
+
+        return view('/' . $this->getTemplate($template), $this->vars);
+    }
+
+    /**
+     * @param $template
+     * @return string
+     */
+    private function getTemplate($template): string
+    {
+        $controller = $this->request->controller();
+        $action = $this->request->action();
+
+        if (str_contains($controller, '.')) {
+            list($module, $controller) = explode('.', $controller);
+            unset($module);
+        }
+
+        return empty($template) ? $controller . '_' . $action : $template;
     }
 }

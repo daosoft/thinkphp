@@ -1,7 +1,8 @@
 <?php
 
-namespace app\controller\web;
+namespace app\controller\home;
 
+use app\controller\Controller;
 use app\middleware\RedirectIfAuthenticated;
 use think\Request;
 use think\response\Json;
@@ -10,9 +11,9 @@ use think\response\View;
 
 /**
  * Class AuthController
- * @package app\controller\web
+ * @package app\controller\home
  */
-class AuthController extends BaseController
+class AuthController extends Controller
 {
     /**
      * @var array|string[]
@@ -35,7 +36,7 @@ class AuthController extends BaseController
      */
     public function login(Request $request): View
     {
-        return $this->display('login');
+        return view('login');
     }
 
     /**
