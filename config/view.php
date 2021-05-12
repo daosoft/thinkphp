@@ -8,7 +8,7 @@ return [
     // 模板目录名
     'view_dir_name' => 'resource/view',
     // 模板后缀
-    'view_suffix' => 'html',
+    'view_suffix' => 'php',
     // 模板文件名分隔符
     'view_depr' => DIRECTORY_SEPARATOR,
     // 模板引擎普通标签开始标记
