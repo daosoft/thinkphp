@@ -22,7 +22,7 @@ class Authenticate
     public function handle(Request $request, Closure $next, string $guard)
     {
         if (!session('?auth_' . $guard)) {
-            $url = ($guard === USER_GUARD ? '' : $guard) . '/auth/login?callback=';
+            $url = ($guard === USER_PATH ? '' : $guard) . '/auth/login?callback=';
             $callback = urlencode($request->url(true));
             return redirect($url . $callback);
         }

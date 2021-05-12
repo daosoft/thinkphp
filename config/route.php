@@ -42,7 +42,7 @@ return [
     // 路由映射
     'route_mapper' => [
         'api' => 'api',
-        'console' => 'admin',
+        'console' => ADMIN_PATH,
         'web' => '',
     ],
 ];

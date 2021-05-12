@@ -18,7 +18,7 @@ class AuthController extends BaseController
      * @var array|string[]
      */
     protected array $middleware = [
-        [RedirectIfAuthenticated::class, [USER_GUARD]],
+        [RedirectIfAuthenticated::class, [USER_PATH]],
     ];
 
     /**
