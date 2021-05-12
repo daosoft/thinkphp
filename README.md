@@ -8,3 +8,15 @@ OpenPHP
 ~~~
 composer create-project openphp/openphp
 ~~~
+
+## 更新
+
+~~~
+composer u -o --no-dev
+~~~
+
+## 运行
+
+~~~
+php artisan swoole
+~~~
