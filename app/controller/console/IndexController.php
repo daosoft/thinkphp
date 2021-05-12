@@ -2,16 +2,19 @@
 
 namespace app\controller\console;
 
-use app\controller\Controller;
+use think\response\View;
 
 /**
  * Class IndexController
  * @package app\controller\console
  */
-class IndexController extends Controller
+class IndexController extends BaseController
 {
-    public function index()
+    /**
+     * @return \think\response\View
+     */
+    public function index(): View
     {
-        return 'hello console';
+        return view('index');
     }
 }

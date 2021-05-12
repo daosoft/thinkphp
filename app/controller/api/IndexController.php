@@ -3,6 +3,7 @@
 namespace app\controller\api;
 
 use app\controller\Controller;
+use think\response\Json;
 
 /**
  * Class IndexController
@@ -10,8 +11,11 @@ use app\controller\Controller;
  */
 class IndexController extends Controller
 {
-    public function index()
+    /**
+     * @return \think\response\Json
+     */
+    public function index(): Json
     {
-        return 'api';
+        return $this->succeed('ok');
     }
 }

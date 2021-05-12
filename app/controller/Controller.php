@@ -2,6 +2,7 @@
 
 namespace app\controller;
 
+use app\response\JsonResponse;
 use think\App;
 use think\exception\ValidateException;
 use think\Request;
@@ -13,6 +14,8 @@ use think\Validate;
  */
 abstract class Controller
 {
+    use JsonResponse;
+
     /**
      * 应用实例
      * @var App
