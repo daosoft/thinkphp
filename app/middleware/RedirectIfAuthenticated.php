@@ -21,6 +21,10 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, string $guard)
     {
+        if (session('?auth_' . $guard)) {
+            return redirect('/' . $guard);
+        }
+
         return $next($request);
     }
 }

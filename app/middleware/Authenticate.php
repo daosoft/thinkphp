@@ -21,6 +21,10 @@ class Authenticate
      */
     public function handle(Request $request, Closure $next, string $guard)
     {
+        if (!session('?auth_' . $guard)) {
+            return redirect($guard . '/auth/login?callback=' . urlencode($request->url(true)));
+        }
+
         return $next($request);
     }
 }
