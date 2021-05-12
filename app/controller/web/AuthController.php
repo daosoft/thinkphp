@@ -34,6 +34,6 @@ class AuthController extends BaseController
      */
     public function login(Request $request): View
     {
-        return view('login');
+        return $this->display('login');
     }
 }
