@@ -15,6 +15,6 @@ class BaseController extends Controller
      * @var array|string[]
      */
     protected array $middleware = [
-        [Authenticate::class, ['admin']],
+        [Authenticate::class, [ADMIN_GUARD]],
     ];
 }

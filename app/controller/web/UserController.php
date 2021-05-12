@@ -15,7 +15,7 @@ class UserController extends BaseController
      * @var array|string[]
      */
     protected array $middleware = [
-        [Authenticate::class, ['user']],
+        [Authenticate::class, [USER_GUARD]],
     ];
 
     /**

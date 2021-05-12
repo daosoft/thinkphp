@@ -2,7 +2,6 @@
 
 namespace app\controller\web;
 
-use app\controller\Controller;
 use app\middleware\RedirectIfAuthenticated;
 use think\Request;
 use think\response\Redirect;
@@ -12,13 +11,13 @@ use think\response\View;
  * Class AuthController
  * @package app\controller\web
  */
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     /**
      * @var array|string[]
      */
     protected array $middleware = [
-        [RedirectIfAuthenticated::class, ['user']],
+        [RedirectIfAuthenticated::class, [USER_GUARD]],
     ];
 
     /**
