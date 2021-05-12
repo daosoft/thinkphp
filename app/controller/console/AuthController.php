@@ -5,6 +5,7 @@ namespace app\controller\console;
 use app\controller\Controller;
 use app\middleware\RedirectIfAuthenticated;
 use think\Request;
+use think\response\Json;
 use think\response\Redirect;
 use think\response\View;
 
@@ -36,5 +37,14 @@ class AuthController extends Controller
     public function login(Request $request): View
     {
         return view('login');
+    }
+
+    /**
+     * @param \think\Request $request
+     * @return \think\response\Json
+     */
+    public function loginHandler(Request $request): Json
+    {
+        return $this->succeed('login');
     }
 }

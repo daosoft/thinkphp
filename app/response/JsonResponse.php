@@ -33,7 +33,7 @@ trait JsonResponse
      * @param $errorCode
      * @return $this
      */
-    protected function setErrorCode($errorCode): JsonResponse
+    protected function setErrorCode($errorCode)
     {
         $this->errorCode = $errorCode;
 
