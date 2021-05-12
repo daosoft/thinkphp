@@ -2,6 +2,7 @@
 
 namespace app\response;
 
+use think\facade\Session;
 use think\response\Json;
 
 /**
@@ -78,11 +79,7 @@ trait JsonResponse
      */
     protected function response($data, array $headers = []): Json
     {
-        $clientId = request()->header($this->clientId);
-
-        if (empty($clientId)) {
-            $clientId = md5(session_create_id((string)mt_rand()));
-        }
+        $clientId = request()->header($this->clientId, md5(Session::getId()));
 
         return json($data, 200, array_merge($headers, [$this->clientId => $clientId]));
     }
