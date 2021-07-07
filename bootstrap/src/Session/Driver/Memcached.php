@@ -1,7 +1,7 @@
 <?php
 namespace Think\Session\Driver;
 
-class Memcache
+class Memcached
 {
     protected $lifeTime    = 3600;
     protected $sessionName = '';
