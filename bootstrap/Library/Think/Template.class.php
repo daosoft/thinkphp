@@ -1,13 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006-2014 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
+
 namespace Think;
 
 /**
@@ -15,11 +7,6 @@ namespace Think;
  * 支持XML标签和普通标签的模板解析
  * 编译型模板引擎 支持动态缓存
  */
-use Think\Hook as Hook;
-//use Think\Crypt\Driver\Think as Think;
-use Think\Storage as Storage;
-use Think\Think as Think;
-
 class Template
 {
 

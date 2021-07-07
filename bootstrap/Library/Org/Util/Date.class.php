@@ -1,23 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2009 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
 
 namespace Org\Util;
 
 /**
  * 日期时间操作类
- * @category   ORG
- * @package  ORG
- * @subpackage  Date
- * @author    liu21st <liu21st@gmail.com>
- * @version   $Id: Date.class.php 2662 2012-01-26 06:32:50Z liu21st $
  */
 use Org\Util\Date as Date;
 class Date

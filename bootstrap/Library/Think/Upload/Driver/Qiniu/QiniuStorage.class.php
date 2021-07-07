@@ -1,4 +1,5 @@
 <?php
+
 namespace Think\Upload\Driver\Qiniu;
 
 class QiniuStorage
