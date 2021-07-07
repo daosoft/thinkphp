@@ -57,8 +57,6 @@ function load_config($file, $parse = CONF_PARSE)
             return include $file;
         case 'ini':
             return parse_ini_file($file);
-        case 'yaml':
-            return yaml_parse_file($file);
         case 'xml':
             return (array)simplexml_load_file($file);
         case 'json':
@@ -69,19 +67,6 @@ function load_config($file, $parse = CONF_PARSE)
             } else {
                 E(L('_NOT_SUPPORT_') . ':' . $ext);
             }
-    }
-}
-
-/**
- * 解析yaml文件返回一个数组
- * @param string $file 配置文件名
- * @return array
- */
-if (!function_exists('yaml_parse_file')) {
-    function yaml_parse_file($file)
-    {
-        vendor('spyc.Spyc');
-        return Spyc::YAMLLoad($file);
     }
 }
 
@@ -605,22 +590,6 @@ function load($name, $baseUrl = '', $ext = '.php')
     }
 
     require_cache($baseUrl . $name . $ext);
-}
-
-/**
- * 快速导入第三方框架类库 所有第三方框架的类库文件统一放到 系统的Vendor目录下面
- * @param string $class 类库
- * @param string $baseUrl 基础目录
- * @param string $ext 类库后缀
- * @return boolean
- */
-function vendor($class, $baseUrl = '', $ext = '.php')
-{
-    if (empty($baseUrl)) {
-        $baseUrl = VENDOR_PATH;
-    }
-
-    return import($class, $baseUrl, $ext);
 }
 
 /**

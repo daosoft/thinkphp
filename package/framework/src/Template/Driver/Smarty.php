@@ -18,7 +18,6 @@ class Smarty
     public function fetch($templateFile, $var)
     {
         $templateFile = substr($templateFile, strlen(THEME_PATH));
-        vendor('Smarty.Smarty#class');
         $tpl = new \Smarty();
         $tpl->caching = C('TMPL_CACHE_ON');
         $tpl->template_dir = THEME_PATH;
