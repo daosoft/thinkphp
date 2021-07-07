@@ -1,6 +1,6 @@
 <?php
 
-namespace Behavior;
+namespace Think\Behavior;
 
 /**
  * 系统行为扩展：表单令牌生成

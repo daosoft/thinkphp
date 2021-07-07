@@ -1,6 +1,6 @@
 <?php
 
-namespace Behavior;
+namespace Think\Behavior;
 
 /**
  * 语言检测 并自动加载语言包

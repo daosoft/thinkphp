@@ -1,10 +1,9 @@
 <?php
 
-namespace Behavior;
+namespace Think\Behavior;
 
 /**
  * 机器人检测
- * @author   liu21st <liu21st@gmail.com>
  */
 class RobotCheckBehavior
 {

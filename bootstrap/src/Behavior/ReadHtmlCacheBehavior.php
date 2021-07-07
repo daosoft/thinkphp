@@ -1,6 +1,6 @@
 <?php
 
-namespace Behavior;
+namespace Think\Behavior;
 
 use Think\Storage;
 

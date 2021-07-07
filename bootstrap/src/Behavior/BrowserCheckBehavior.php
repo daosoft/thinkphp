@@ -1,6 +1,6 @@
 <?php
 
-namespace Behavior;
+namespace Think\Behavior;
 
 /**
  * 浏览器防刷新检测

@@ -1,6 +1,6 @@
 <?php
 
-namespace Org\Net;
+namespace Think\Support\Net;
 
 /**
  *  IP 地理位置查询类 修改自 CoolCode.CN

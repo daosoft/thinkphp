@@ -1,6 +1,6 @@
 <?php
 
-namespace Org\Net;
+namespace Think\Support\Net;
 
 /**
  * Http 工具类

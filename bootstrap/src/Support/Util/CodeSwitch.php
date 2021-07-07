@@ -1,6 +1,6 @@
 <?php
 
-namespace Org\Util;
+namespace Think\Support\Util;
 
 class CodeSwitch
 {

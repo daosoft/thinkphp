@@ -1,6 +1,6 @@
 <?php
 
-namespace Behavior;
+namespace Think\Behavior;
 
 /**
  * 行为扩展：代理检测

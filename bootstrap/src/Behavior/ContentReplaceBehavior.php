@@ -1,6 +1,6 @@
 <?php
 
-namespace Behavior;
+namespace Think\Behavior;
 
 /**
  * 系统行为扩展：模板内容输出替换

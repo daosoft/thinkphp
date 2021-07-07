@@ -1,6 +1,6 @@
 <?php
 
-namespace Think;
+namespace Think\Auth;
 
 /**
  * 权限认证类
