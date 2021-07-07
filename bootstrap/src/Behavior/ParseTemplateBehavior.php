@@ -14,8 +14,8 @@ class ParseTemplateBehavior
     // 行为扩展的执行入口必须是run
     public function run(&$_data)
     {
-        $engine          = strtolower(C('TMPL_ENGINE_TYPE'));
-        $_content        = empty($_data['content']) ? $_data['file'] : $_data['content'];
+        $engine = strtolower(C('TMPL_ENGINE_TYPE'));
+        $_content = empty($_data['content']) ? $_data['file'] : $_data['content'];
         $_data['prefix'] = !empty($_data['prefix']) ? $_data['prefix'] : C('TMPL_CACHE_PREFIX');
         if ('think' == $engine) {
             // 采用Think模板引擎
@@ -50,7 +50,7 @@ class ParseTemplateBehavior
      * 检查缓存文件是否有效
      * 如果无效则需要重新编译
      * @access public
-     * @param string $tmplTemplateFile  模板文件名
+     * @param string $tmplTemplateFile 模板文件名
      * @return boolean
      */
     protected function checkCache($tmplTemplateFile, $prefix = '')
@@ -85,7 +85,7 @@ class ParseTemplateBehavior
      * 检查缓存内容是否有效
      * 如果无效则需要重新编译
      * @access public
-     * @param string $tmplContent  模板内容
+     * @param string $tmplContent 模板内容
      * @return boolean
      */
     protected function checkContentCache($tmplContent, $prefix = '')

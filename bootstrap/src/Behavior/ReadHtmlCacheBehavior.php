@@ -35,7 +35,7 @@ class ReadHtmlCacheBehavior
             // 'read'=>array('{id},{name}',60,'md5') 必须保证静态规则的唯一性 和 可判断性
             // 检测静态规则
             $controllerName = strtolower(CONTROLLER_NAME);
-            $actionName     = strtolower(ACTION_NAME);
+            $actionName = strtolower(ACTION_NAME);
             if (isset($htmls[$controllerName . ':' . $actionName])) {
                 $html = $htmls[$controllerName . ':' . $actionName]; // 某个控制器的操作的静态规则
             } elseif (isset($htmls[$controllerName . ':'])) {
@@ -52,32 +52,44 @@ class ReadHtmlCacheBehavior
                 // 以$_开头的系统变量
                 $callback = function ($match) {
                     switch ($match[1]) {
-                        case '_GET':$var = $_GET[$match[2]];
+                        case '_GET':
+                            $var = $_GET[$match[2]];
                             break;
-                        case '_POST':$var = $_POST[$match[2]];
+                        case '_POST':
+                            $var = $_POST[$match[2]];
                             break;
-                        case '_REQUEST':$var = $_REQUEST[$match[2]];
+                        case '_REQUEST':
+                            $var = $_REQUEST[$match[2]];
                             break;
-                        case '_SERVER':$var = $_SERVER[$match[2]];
+                        case '_SERVER':
+                            $var = $_SERVER[$match[2]];
                             break;
-                        case '_SESSION':$var = $_SESSION[$match[2]];
+                        case '_SESSION':
+                            $var = $_SESSION[$match[2]];
                             break;
-                        case '_COOKIE':$var = $_COOKIE[$match[2]];
+                        case '_COOKIE':
+                            $var = $_COOKIE[$match[2]];
                             break;
                     }
                     return (count($match) == 4) ? $match[3]($var) : $var;
                 };
                 $rule = preg_replace_callback('/{\$(_\w+)\.(\w+)(?:\|(\w+))?}/', $callback, $rule);
                 // {ID|FUN} GET变量的简写
-                $rule = preg_replace_callback('/{(\w+)\|(\w+)}/', function ($match) {return $match[2]($_GET[$match[1]]);}, $rule);
-                $rule = preg_replace_callback('/{(\w+)}/', function ($match) {return $_GET[$match[1]];}, $rule);
+                $rule = preg_replace_callback('/{(\w+)\|(\w+)}/', function ($match) {
+                    return $match[2]($_GET[$match[1]]);
+                }, $rule);
+                $rule = preg_replace_callback('/{(\w+)}/', function ($match) {
+                    return $_GET[$match[1]];
+                }, $rule);
                 // 特殊系统变量
                 $rule = str_ireplace(
                     array('{:controller}', '{:action}', '{:module}'),
                     array(CONTROLLER_NAME, ACTION_NAME, MODULE_NAME),
                     $rule);
                 // {|FUN} 单独使用函数
-                $rule = preg_replace_callback('/{|(\w+)}/', function ($match) {return $match[1]();}, $rule);
+                $rule = preg_replace_callback('/{|(\w+)}/', function ($match) {
+                    return $match[1]();
+                }, $rule);
                 $cacheTime = C('HTML_CACHE_TIME', null, 60);
                 if (is_array($html)) {
                     if (!empty($html[2])) {
@@ -102,8 +114,8 @@ class ReadHtmlCacheBehavior
      * 检查静态HTML文件是否有效
      * 如果无效需要重新更新
      * @access public
-     * @param string $cacheFile  静态文件名
-     * @param integer $cacheTime  缓存有效期
+     * @param string $cacheFile 静态文件名
+     * @param integer $cacheTime 缓存有效期
      * @return boolean
      */
     public static function checkHTMLCache($cacheFile = '', $cacheTime = '')

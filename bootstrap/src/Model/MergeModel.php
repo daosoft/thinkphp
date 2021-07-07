@@ -10,11 +10,11 @@ use Think\Model;
 class MergeModel extends Model
 {
 
-    protected $modelList   = array(); //  包含的模型列表 第一个必须是主表模型
+    protected $modelList = array(); //  包含的模型列表 第一个必须是主表模型
     protected $masterModel = ''; //  主模型
-    protected $joinType    = 'INNER'; //  聚合模型的查询JOIN类型
-    protected $fk          = ''; //  外键名 默认为主表名_id
-    protected $mapFields   = array(); //  需要处理的模型映射字段，避免混淆 array( id => 'user.id'  )
+    protected $joinType = 'INNER'; //  聚合模型的查询JOIN类型
+    protected $fk = ''; //  外键名 默认为主表名_id
+    protected $mapFields = array(); //  需要处理的模型映射字段，避免混淆 array( id => 'user.id'  )
 
     /**
      * 架构函数
@@ -32,7 +32,7 @@ class MergeModel extends Model
             $fields = array();
             foreach ($this->modelList as $model) {
                 // 获取模型的字段信息
-                $result  = $this->db->getFields(M($model)->getTableName());
+                $result = $this->db->getFields(M($model)->getTableName());
                 $_fields = array_keys($result);
                 // $this->mapFields  =   array_intersect($fields,$_fields);
                 $fields = array_merge($fields, $_fields);
@@ -63,7 +63,7 @@ class MergeModel extends Model
     {
         if (empty($this->trueTableName)) {
             $tableName = array();
-            $models    = $this->modelList;
+            $models = $this->modelList;
             foreach ($models as $model) {
                 $tableName[] = M($model)->getTableName() . ' ' . $model;
             }
@@ -78,7 +78,8 @@ class MergeModel extends Model
      * @return void
      */
     protected function _checkTableInfo()
-    {}
+    {
+    }
 
     /**
      * 新增聚合数据
@@ -108,7 +109,7 @@ class MergeModel extends Model
         if ($result) {
             // 写入外键数据
             $data[$this->fk] = $result;
-            $models          = $this->modelList;
+            $models = $this->modelList;
             array_shift($models);
             // 写入附表数据
             foreach ($models as $model) {
@@ -196,12 +197,12 @@ class MergeModel extends Model
         // 如果存在主键数据 则自动作为更新条件
         $pk = $this->pk;
         if (isset($data[$pk])) {
-            $where[$pk]       = $data[$pk];
+            $where[$pk] = $data[$pk];
             $options['where'] = $where;
             unset($data[$pk]);
         }
         $options['join'] = '';
-        $options         = $this->_parseOptions($options);
+        $options = $this->_parseOptions($options);
         // 更新操作不使用JOIN
         $options['table'] = $this->getTableName();
 
@@ -248,12 +249,12 @@ class MergeModel extends Model
             } else {
                 $where[$pk] = $options;
             }
-            $options          = array();
+            $options = array();
             $options['where'] = $where;
         }
         // 分析表达式
         $options['join'] = '';
-        $options         = $this->_parseOptions($options);
+        $options = $this->_parseOptions($options);
         if (empty($options['where'])) {
             // 如果条件为空 不进行删除操作 除非设置 1=1
             return false;
@@ -347,7 +348,7 @@ class MergeModel extends Model
             foreach ($orders as $order) {
                 $array = explode(' ', trim($order));
                 $field = $array[0];
-                $sort  = isset($array[1]) ? $array[1] : 'ASC';
+                $sort = isset($array[1]) ? $array[1] : 'ASC';
                 if (array_key_exists($field, $this->mapFields)) {
                     // 需要处理映射字段
                     $field = $this->mapFields[$field];

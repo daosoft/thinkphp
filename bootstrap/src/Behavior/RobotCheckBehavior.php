@@ -22,7 +22,7 @@ class RobotCheckBehavior
     {
         static $_robot = null;
         if (is_null($_robot)) {
-            $spiders  = 'Bot|Crawl|Spider|slurp|sohu-search|lycos|robozilla';
+            $spiders = 'Bot|Crawl|Spider|slurp|sohu-search|lycos|robozilla';
             $browsers = 'MSIE|Netscape|Opera|Konqueror|Mozilla';
             if (preg_match("/($browsers)/", $_SERVER['HTTP_USER_AGENT'])) {
                 $_robot = false;

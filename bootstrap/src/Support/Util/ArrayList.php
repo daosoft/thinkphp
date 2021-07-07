@@ -18,7 +18,7 @@ class ArrayList implements \IteratorAggregate
     /**
      * 架构函数
      * @access public
-     * @param string $elements  初始化数组元素
+     * @param string $elements 初始化数组元素
      */
     public function __construct($elements = array())
     {
@@ -40,7 +40,7 @@ class ArrayList implements \IteratorAggregate
     /**
      * 增加元素
      * @access public
-     * @param mixed $element  要添加的元素
+     * @param mixed $element 要添加的元素
      * @return boolean
      */
     public function add($element)
@@ -63,7 +63,7 @@ class ArrayList implements \IteratorAggregate
     /**
      * 增加元素列表
      * @access public
-     * @param ArrayList $list  元素列表
+     * @param ArrayList $list 元素列表
      * @return boolean
      */
     public function addAll($list)
@@ -88,7 +88,7 @@ class ArrayList implements \IteratorAggregate
     /**
      * 是否包含某个元素
      * @access public
-     * @param mixed $element  查找元素
+     * @param mixed $element 查找元素
      * @return string
      */
     public function contains($element)
@@ -111,7 +111,7 @@ class ArrayList implements \IteratorAggregate
      * 查找匹配元素，并返回第一个元素所在位置
      * 注意 可能存在0的索引位置 因此要用===False来判断查找失败
      * @access public
-     * @param mixed $element  查找元素
+     * @param mixed $element 查找元素
      * @return integer
      */
     public function indexOf($element)
@@ -132,13 +132,15 @@ class ArrayList implements \IteratorAggregate
     /**
      * 最后一个匹配的元素位置
      * @access public
-     * @param mixed $element  查找元素
+     * @param mixed $element 查找元素
      * @return integer
      */
     public function lastIndexOf($element)
     {
         for ($i = (count($this->_elements) - 1); $i > 0; $i--) {
-            if ($this->get($i) == $element) {return $i;}
+            if ($this->get($i) == $element) {
+                return $i;
+            }
         }
     }
 
@@ -157,15 +159,17 @@ class ArrayList implements \IteratorAggregate
     public function remove($index)
     {
         $element = $this->get($index);
-        if (!is_null($element)) {array_splice($this->_elements, $index, 1);}
+        if (!is_null($element)) {
+            array_splice($this->_elements, $index, 1);
+        }
         return $element;
     }
 
     /**
      * 移出一定范围的数组列表
      * @access public
-     * @param integer $offset  开始移除位置
-     * @param integer $length  移除长度
+     * @param integer $offset 开始移除位置
+     * @param integer $length 移除长度
      */
     public function removeRange($offset, $length)
     {
@@ -184,8 +188,8 @@ class ArrayList implements \IteratorAggregate
     /**
      * 取出一定范围的数组列表
      * @access public
-     * @param integer $offset  开始位置
-     * @param integer $length  长度
+     * @param integer $offset 开始位置
+     * @param integer $length 长度
      */
     public function range($offset, $length = null)
     {
@@ -197,12 +201,12 @@ class ArrayList implements \IteratorAggregate
      * 返回修改之前的值
      * @access public
      * @param integer $index 索引
-     * @param mixed $element  元素
+     * @param mixed $element 元素
      * @return mixed
      */
     public function set($index, $element)
     {
-        $previous                = $this->get($index);
+        $previous = $this->get($index);
         $this->_elements[$index] = $element;
         return $previous;
     }

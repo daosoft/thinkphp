@@ -27,8 +27,8 @@ class CheckLangBehavior
         if (!C('LANG_SWITCH_ON', null, false)) {
             return;
         }
-        $langSet  = C('DEFAULT_LANG');
-        $varLang  = C('VAR_LANGUAGE', null, 'l');
+        $langSet = C('DEFAULT_LANG');
+        $varLang = C('VAR_LANGUAGE', null, 'l');
         $langList = C('LANG_LIST', null, 'zh-cn');
         // 启用了语言包功能
         // 根据是否启用自动侦测设置获取语言选择

@@ -21,7 +21,7 @@ class File extends Storage
     /**
      * 文件内容读取
      * @access public
-     * @param string $filename  文件名
+     * @param string $filename 文件名
      * @return string
      */
     public function read($filename, $type = '')
@@ -32,8 +32,8 @@ class File extends Storage
     /**
      * 文件写入
      * @access public
-     * @param string $filename  文件名
-     * @param string $content  文件内容
+     * @param string $filename 文件名
+     * @param string $content 文件内容
      * @return boolean
      */
     public function put($filename, $content, $type = '')
@@ -53,8 +53,8 @@ class File extends Storage
     /**
      * 文件追加写入
      * @access public
-     * @param string $filename  文件名
-     * @param string $content  追加的文件内容
+     * @param string $filename 文件名
+     * @param string $content 追加的文件内容
      * @return boolean
      */
     public function append($filename, $content, $type = '')
@@ -68,8 +68,8 @@ class File extends Storage
     /**
      * 加载文件
      * @access public
-     * @param string $filename  文件名
-     * @param array $vars  传入变量
+     * @param string $filename 文件名
+     * @param array $vars 传入变量
      * @return void
      */
     public function load($_filename, $vars = null)
@@ -83,7 +83,7 @@ class File extends Storage
     /**
      * 文件是否存在
      * @access public
-     * @param string $filename  文件名
+     * @param string $filename 文件名
      * @return boolean
      */
     public function has($filename, $type = '')
@@ -94,7 +94,7 @@ class File extends Storage
     /**
      * 文件删除
      * @access public
-     * @param string $filename  文件名
+     * @param string $filename 文件名
      * @return boolean
      */
     public function unlink($filename, $type = '')
@@ -106,8 +106,8 @@ class File extends Storage
     /**
      * 读取文件信息
      * @access public
-     * @param string $filename  文件名
-     * @param string $name  信息名 mtime或者content
+     * @param string $filename 文件名
+     * @param string $name 信息名 mtime或者content
      * @return boolean
      */
     public function get($filename, $name, $type = '')
@@ -120,8 +120,8 @@ class File extends Storage
             $this->contents[$filename] = file_get_contents($filename);
         }
         $content = $this->contents[$filename];
-        $info    = array(
-            'mtime'   => filemtime($filename),
+        $info = array(
+            'mtime' => filemtime($filename),
             'content' => $content,
         );
         return $info[$name];

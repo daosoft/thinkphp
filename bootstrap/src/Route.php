@@ -10,7 +10,7 @@ class Route
 
     /**
      * 路由检测
-     * @param  array $paths path_info数组
+     * @param array $paths path_info数组
      * @return boolean
      */
     public static function check($paths = array())
@@ -72,14 +72,11 @@ class Route
                         // 路由参数关联$matches
                         if ('/' == substr($rule, 0, 1)) {
                             $rule_params = array();
-                            foreach($route[1] as $param_key => $param)
-                            {
-                                list($param_name,$param_value) = explode('=', $param,2);
-                                if(!is_null($param_value))
-                                {
-                                    if(preg_match('/^:(\d*)$/',$param_value, $match_index))
-                                    {
-                                        $match_index = $match_index[1]-1;
+                            foreach ($route[1] as $param_key => $param) {
+                                list($param_name, $param_value) = explode('=', $param, 2);
+                                if (!is_null($param_value)) {
+                                    if (preg_match('/^:(\d*)$/', $param_value, $match_index)) {
+                                        $match_index = $match_index[1] - 1;
                                         $param_value = $matches[$match_index];
                                     }
                                     $rule_params[$param_name] = $param_value;
@@ -112,10 +109,10 @@ class Route
 
     /**
      * 路由反向解析
-     * @param  string $path 控制器/方法
-     * @param  array $vars url参数
-     * @param  string $depr 分隔符
-     * @param  string|true $suffix url后缀
+     * @param string $path 控制器/方法
+     * @param array $vars url参数
+     * @param string $depr 分隔符
+     * @param string|true $suffix url后缀
      * @return string|false
      */
     public static function reverse($path, &$vars, $depr, $suffix = true)
@@ -169,7 +166,7 @@ class Route
                             if (!empty($val[2])) {
                                 if ($val[2] == 'int') {
                                     // 是否为数字
-                                    if (!is_numeric($vars[$key]) || !preg_match('/^\d*$/',$vars[$key])) {
+                                    if (!is_numeric($vars[$key]) || !preg_match('/^\d*$/', $vars[$key])) {
                                         break;
                                     }
                                 } else {
@@ -201,8 +198,7 @@ class Route
                     $str = preg_replace_callback('/\(.*?\)/', function ($match) use (&$temp_vars, &$keys) {
                         $k = array_shift($keys);
                         $re_var = '';
-                        if(isset($temp_vars[$k]))
-                        {
+                        if (isset($temp_vars[$k])) {
                             $re_var = $temp_vars[$k];
                             unset($temp_vars[$k]);
                         }
@@ -241,7 +237,7 @@ class Route
     // '/new\/(\d+)/'=>array('/new.php?id=:1&page=:2&status=1','301'), 重定向
     /**
      * 读取规则缓存
-     * @param  boolean $update 是否更新
+     * @param boolean $update 是否更新
      * @return array
      */
     public static function ruleCache($update = false)
@@ -369,8 +365,8 @@ class Route
 
     /**
      * 路由参数检测
-     * @param  array $options 路由参数
-     * @param  string|true $suffix URL后缀
+     * @param array $options 路由参数
+     * @param string|true $suffix URL后缀
      * @return boolean
      */
     private static function checkOption($options, $suffix = true)
@@ -402,9 +398,9 @@ class Route
 
     /**
      * 检测URL和路由规则是否匹配
-     * @param  string $rule 路由规则
-     * @param  array $args 路由动态变量
-     * @param  string $regx URL地址
+     * @param string $rule 路由规则
+     * @param array $args 路由动态变量
+     * @param string $regx URL地址
      * @return array|false
      */
     private static function checkUrlMatch(&$rule, &$args, &$regx)
@@ -442,7 +438,7 @@ class Route
                         // 设置了过滤条件
                         if ($val[2] == 'int') {
                             // 如果值不为整数
-                            if (!preg_match('/^\d*$/',$var)) {
+                            if (!preg_match('/^\d*$/', $var)) {
                                 return false;
                             }
                         } else {
@@ -477,8 +473,8 @@ class Route
 
     /**
      * 执行闭包方法 支持参数调用
-     * @param  function $closure 闭包函数
-     * @param  array $var 传给闭包的参数
+     * @param function $closure 闭包函数
+     * @param array $var 传给闭包的参数
      * @return boolean
      */
     private static function invoke($closure, $var = array())

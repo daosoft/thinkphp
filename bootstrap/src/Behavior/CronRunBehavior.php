@@ -5,7 +5,9 @@ namespace Behavior;
 /**
  * 自动执行任务
  */
+
 use Think\Log as Log;
+
 class CronRunBehavior
 {
 
@@ -32,7 +34,7 @@ class CronRunBehavior
         }
         if (isset($crons) && is_array($crons)) {
             $update = false;
-            $log    = array();
+            $log = array();
             foreach ($crons as $key => $cron) {
                 if (empty($cron[2]) || $_SERVER['REQUEST_TIME'] >= $cron[2]) {
                     // 到达时间 执行cron文件
@@ -41,10 +43,10 @@ class CronRunBehavior
                     G('cronEnd');
                     $_useTime = G('cronStart', 'cronEnd', 6);
                     // 更新cron记录
-                    $cron[2]     = $_SERVER['REQUEST_TIME'] + $cron[1];
+                    $cron[2] = $_SERVER['REQUEST_TIME'] + $cron[1];
                     $crons[$key] = $cron;
-                    $log[]       = "Cron:$key Runat " . date('Y-m-d H:i:s') . " Use $_useTime s\n";
-                    $update      = true;
+                    $log[] = "Cron:$key Runat " . date('Y-m-d H:i:s') . " Use $_useTime s\n";
+                    $update = true;
                 }
             }
             if ($update) {

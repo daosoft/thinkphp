@@ -23,16 +23,16 @@ class Ftp
     private $link;
 
     private $config = array(
-        'host'     => '', //服务器
-        'port'     => 21, //端口
-        'timeout'  => 90, //超时时间
+        'host' => '', //服务器
+        'port' => 21, //端口
+        'timeout' => 90, //超时时间
         'username' => '', //用户名
         'password' => '', //密码
     );
 
     /**
      * 构造函数，用于设置上传根路径
-     * @param array  $config FTP配置
+     * @param array $config FTP配置
      */
     public function __construct($config)
     {
@@ -47,7 +47,7 @@ class Ftp
 
     /**
      * 检测上传根目录
-     * @param string $rootpath   根目录
+     * @param string $rootpath 根目录
      * @return boolean true-检测通过，false-检测失败
      */
     public function checkRootPath($rootpath)
@@ -64,7 +64,7 @@ class Ftp
 
     /**
      * 检测上传目录
-     * @param  string $savepath 上传目录
+     * @param string $savepath 上传目录
      * @return boolean          检测结果，true-通过，false-失败
      */
     public function checkSavePath($savepath)
@@ -80,8 +80,8 @@ class Ftp
 
     /**
      * 保存指定文件
-     * @param  array   $file    保存的文件信息
-     * @param  boolean $replace 同名文件是否覆盖
+     * @param array $file 保存的文件信息
+     * @param boolean $replace 同名文件是否覆盖
      * @return boolean          保存状态，true-成功，false-失败
      */
     public function save($file, $replace = true)
@@ -104,7 +104,7 @@ class Ftp
 
     /**
      * 创建目录
-     * @param  string $savepath 要创建的目录
+     * @param string $savepath 要创建的目录
      * @return boolean          创建状态，true-成功，false-失败
      */
     public function mkdir($savepath)

@@ -45,12 +45,12 @@ class IpLocation
     public function __construct($filename = "UTFWry.dat")
     {
         $this->fp = 0;
-        if(!is_file($filename)) {
+        if (!is_file($filename)) {
             $filename = dirname(__FILE__) . '/' . $filename;
         }
         if (($this->fp = fopen($filename, 'rb')) !== false) {
             $this->firstip = $this->getlong();
-            $this->lastip  = $this->getlong();
+            $this->lastip = $this->getlong();
             $this->totalip = ($this->lastip - $this->firstip) / 7;
         }
     }
@@ -156,11 +156,11 @@ class IpLocation
         }
 
         $location['ip'] = gethostbyname($ip); // 将输入的域名转化为IP地址
-        $ip             = $this->packip($location['ip']); // 将输入的IP地址转化为可比较的IP地址
+        $ip = $this->packip($location['ip']); // 将输入的IP地址转化为可比较的IP地址
         // 不合法的IP地址会被转化为255.255.255.255
         // 对分搜索
-        $l      = 0; // 搜索的下边界
-        $u      = $this->totalip; // 搜索的上边界
+        $l = 0; // 搜索的下边界
+        $u = $this->totalip; // 搜索的上边界
         $findip = $this->lastip; // 如果没有找到就返回最后一条IP记录（QQWry.Dat的版本信息）
         while ($l <= $u) {
             // 当上边界小于下边界时，查找失败
@@ -187,10 +187,10 @@ class IpLocation
         //获取查找到的IP地理位置信息
         fseek($this->fp, $findip);
         $location['beginip'] = long2ip($this->getlong()); // 用户IP所在范围的开始地址
-        $offset              = $this->getlong3();
+        $offset = $this->getlong3();
         fseek($this->fp, $offset);
         $location['endip'] = long2ip($this->getlong()); // 用户IP所在范围的结束地址
-        $byte              = fread($this->fp, 1); // 标志字节
+        $byte = fread($this->fp, 1); // 标志字节
         switch (ord($byte)) {
             case 1: // 标志字节为1，表示国家和区域信息都被同时重定向
                 $countryOffset = $this->getlong3(); // 重定向地址
@@ -205,7 +205,7 @@ class IpLocation
                         break;
                     default: // 否则，表示国家信息没有被重定向
                         $location['country'] = $this->getstring($byte);
-                        $location['area']    = $this->getarea();
+                        $location['area'] = $this->getarea();
                         break;
                 }
                 break;
@@ -217,7 +217,7 @@ class IpLocation
                 break;
             default: // 否则，表示国家信息没有被重定向
                 $location['country'] = $this->getstring($byte);
-                $location['area']    = $this->getarea();
+                $location['area'] = $this->getarea();
                 break;
         }
         if (trim($location['country']) == 'CZ88.NET') {

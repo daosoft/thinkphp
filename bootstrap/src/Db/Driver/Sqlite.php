@@ -30,14 +30,14 @@ class Sqlite extends Driver
     public function getFields($tableName)
     {
         list($tableName) = explode(' ', $tableName);
-        $result          = $this->query('PRAGMA table_info( ' . $tableName . ' )');
-        $info            = array();
+        $result = $this->query('PRAGMA table_info( ' . $tableName . ' )');
+        $info = array();
         if ($result) {
             foreach ($result as $key => $val) {
                 $info[$val['name']] = array(
-                    'name'    => $val['name'],
-                    'type'    => $val['type'],
-                    'notnull' => (bool) (1 === $val['notnull']),
+                    'name' => $val['name'],
+                    'type' => $val['type'],
+                    'notnull' => (bool)(1 === $val['notnull']),
                     'default' => $val['dflt_value'],
                     'primary' => '1' == $val['pk'],
                     'autoinc' => false,
@@ -67,7 +67,7 @@ class Sqlite extends Driver
     /**
      * SQL指令安全过滤
      * @access public
-     * @param string $str  SQL指令
+     * @param string $str SQL指令
      * @return string
      */
     public function escapeString($str)

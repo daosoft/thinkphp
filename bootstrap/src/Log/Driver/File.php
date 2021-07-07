@@ -7,8 +7,8 @@ class File
 
     protected $config = array(
         'log_time_format' => ' c ',
-        'log_file_size'   => 2097152,
-        'log_path'        => '',
+        'log_file_size' => 2097152,
+        'log_path' => '',
     );
 
     // 实例化并传入参数
@@ -21,7 +21,7 @@ class File
      * 日志写入接口
      * @access public
      * @param string $log 日志信息
-     * @param string $destination  写入目标
+     * @param string $destination 写入目标
      * @return void
      */
     public function write($log, $destination = '')

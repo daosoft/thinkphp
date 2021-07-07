@@ -64,20 +64,20 @@ class Auth
 
     //默认配置
     protected $_config = array(
-        'AUTH_ON'           => true, // 认证开关
-        'AUTH_TYPE'         => 1, // 认证方式，1为实时认证；2为登录认证。
-        'AUTH_GROUP'        => 'auth_group', // 用户组数据表名
+        'AUTH_ON' => true, // 认证开关
+        'AUTH_TYPE' => 1, // 认证方式，1为实时认证；2为登录认证。
+        'AUTH_GROUP' => 'auth_group', // 用户组数据表名
         'AUTH_GROUP_ACCESS' => 'auth_group_access', // 用户-用户组关系表
-        'AUTH_RULE'         => 'auth_rule', // 权限规则表
-        'AUTH_USER'         => 'member', // 用户信息表
+        'AUTH_RULE' => 'auth_rule', // 权限规则表
+        'AUTH_USER' => 'member', // 用户信息表
     );
 
     public function __construct()
     {
-        $prefix                             = C('DB_PREFIX');
-        $this->_config['AUTH_GROUP']        = $prefix . $this->_config['AUTH_GROUP'];
-        $this->_config['AUTH_RULE']         = $prefix . $this->_config['AUTH_RULE'];
-        $this->_config['AUTH_USER']         = $prefix . $this->_config['AUTH_USER'];
+        $prefix = C('DB_PREFIX');
+        $this->_config['AUTH_GROUP'] = $prefix . $this->_config['AUTH_GROUP'];
+        $this->_config['AUTH_RULE'] = $prefix . $this->_config['AUTH_RULE'];
+        $this->_config['AUTH_USER'] = $prefix . $this->_config['AUTH_USER'];
         $this->_config['AUTH_GROUP_ACCESS'] = $prefix . $this->_config['AUTH_GROUP_ACCESS'];
         if (C('AUTH_CONFIG')) {
             //可设置配置项 AUTH_CONFIG, 此配置项为数组。
@@ -117,7 +117,7 @@ class Auth
             if ('url' == $mode && $query != $auth) {
                 parse_str($query, $param); //解析规则中的param
                 $intersect = array_intersect_assoc($REQUEST, $param);
-                $auth      = preg_replace('/\?.*$/U', '', $auth);
+                $auth = preg_replace('/\?.*$/U', '', $auth);
                 if (in_array($auth, $name) && $intersect == $param) {
                     //如果节点相符且url参数满足
                     $list[] = $auth;
@@ -138,7 +138,7 @@ class Auth
 
     /**
      * 根据用户id获取用户组,返回值为数组
-     * @param  uid int     用户id
+     * @param uid int     用户id
      * @return array       用户所属的用户组 array(
      *     array('uid'=>'用户id','group_id'=>'用户组id','title'=>'用户组名称','rules'=>'用户组拥有的规则id,多个,号隔开'),
      *     ...)
@@ -161,13 +161,13 @@ class Auth
 
     /**
      * 获得权限列表
-     * @param integer $uid  用户id
+     * @param integer $uid 用户id
      * @param integer $type
      */
     protected function getAuthList($uid, $type)
     {
         static $_authList = array(); //保存用户验证通过的权限列表
-        $t                = implode(',', (array) $type);
+        $t = implode(',', (array)$type);
         if (isset($_authList[$uid . $t])) {
             return $_authList[$uid . $t];
         }
@@ -177,7 +177,7 @@ class Auth
 
         //读取用户所属用户组
         $groups = $this->getGroups($uid);
-        $ids    = array(); //保存用户所属用户组设置的所有权限规则id
+        $ids = array(); //保存用户所属用户组设置的所有权限规则id
         foreach ($groups as $g) {
             $ids = array_merge($ids, explode(',', trim($g['rules'], ',')));
         }
@@ -188,8 +188,8 @@ class Auth
         }
 
         $map = array(
-            'id'     => array('in', $ids),
-            'type'   => $type,
+            'id' => array('in', $ids),
+            'type' => $type,
             'status' => 1,
         );
         //读取用户组所有权限规则

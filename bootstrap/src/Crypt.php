@@ -12,8 +12,8 @@ class Crypt
 
     public static function init($type = '')
     {
-        $type          = $type ?: C('DATA_CRYPT_TYPE');
-        $class         = strpos($type, '\\') ? $type : 'Think\\Crypt\\Driver\\' . ucwords(strtolower($type));
+        $type = $type ?: C('DATA_CRYPT_TYPE');
+        $class = strpos($type, '\\') ? $type : 'Think\\Crypt\\Driver\\' . ucwords(strtolower($type));
         self::$handler = $class;
     }
 

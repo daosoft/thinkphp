@@ -9,15 +9,15 @@ class Log
 {
 
     // 日志级别 从上到下，由低到高
-    const EMERG  = 'EMERG'; // 严重错误: 导致系统崩溃无法使用
-    const ALERT  = 'ALERT'; // 警戒性错误: 必须被立即修改的错误
-    const CRIT   = 'CRIT'; // 临界值错误: 超过临界值的错误，例如一天24小时，而输入的是25小时这样
-    const ERR    = 'ERR'; // 一般错误: 一般性错误
-    const WARN   = 'WARN'; // 警告性错误: 需要发出警告的错误
+    const EMERG = 'EMERG'; // 严重错误: 导致系统崩溃无法使用
+    const ALERT = 'ALERT'; // 警戒性错误: 必须被立即修改的错误
+    const CRIT = 'CRIT'; // 临界值错误: 超过临界值的错误，例如一天24小时，而输入的是25小时这样
+    const ERR = 'ERR'; // 一般错误: 一般性错误
+    const WARN = 'WARN'; // 警告性错误: 需要发出警告的错误
     const NOTICE = 'NOTIC'; // 通知: 程序可以运行但是还不够完美的错误
-    const INFO   = 'INFO'; // 信息: 程序输出信息
-    const DEBUG  = 'DEBUG'; // 调试: 调试信息
-    const SQL    = 'SQL'; // SQL：SQL语句 注意只在调试模式开启时有效
+    const INFO = 'INFO'; // 信息: 程序输出信息
+    const DEBUG = 'DEBUG'; // 调试: 调试信息
+    const SQL = 'SQL'; // SQL：SQL语句 注意只在调试模式开启时有效
 
     // 日志信息
     protected static $log = array();
@@ -28,7 +28,7 @@ class Log
     // 日志初始化
     public static function init($config = array())
     {
-        $type  = isset($config['type']) ? $config['type'] : 'File';
+        $type = isset($config['type']) ? $config['type'] : 'File';
         $class = strpos($type, '\\') ? $type : 'Think\\Log\\Driver\\' . ucwords(strtolower($type));
         unset($config['type']);
         self::$storage = new $class($config);
@@ -39,8 +39,8 @@ class Log
      * @static
      * @access public
      * @param string $message 日志信息
-     * @param string $level  日志级别
-     * @param boolean $record  是否强制记录
+     * @param string $level 日志级别
+     * @param boolean $record 是否强制记录
      * @return void
      */
     public static function record($message, $level = self::ERR, $record = false)
@@ -55,7 +55,7 @@ class Log
      * @static
      * @access public
      * @param integer $type 日志记录方式
-     * @param string $destination  写入目标
+     * @param string $destination 写入目标
      * @return void
      */
     public static function save($type = '', $destination = '')
@@ -68,8 +68,8 @@ class Log
             $destination = C('LOG_PATH') . date('y_m_d') . '.log';
         }
         if (!self::$storage) {
-            $type          = $type ?: C('LOG_TYPE');
-            $class         = 'Think\\Log\\Driver\\' . ucwords($type);
+            $type = $type ?: C('LOG_TYPE');
+            $class = 'Think\\Log\\Driver\\' . ucwords($type);
             self::$storage = new $class();
         }
         $message = implode('', self::$log);
@@ -83,18 +83,18 @@ class Log
      * @static
      * @access public
      * @param string $message 日志信息
-     * @param string $level  日志级别
+     * @param string $level 日志级别
      * @param integer $type 日志记录方式
-     * @param string $destination  写入目标
+     * @param string $destination 写入目标
      * @return void
      */
     public static function write($message, $level = self::ERR, $type = '', $destination = '')
     {
         if (!self::$storage) {
-            $type               = $type ?: C('LOG_TYPE');
-            $class              = 'Think\\Log\\Driver\\' . ucwords($type);
+            $type = $type ?: C('LOG_TYPE');
+            $class = 'Think\\Log\\Driver\\' . ucwords($type);
             $config['log_path'] = C('LOG_PATH');
-            self::$storage      = new $class($config);
+            self::$storage = new $class($config);
         }
         if (empty($destination)) {
             $destination = C('LOG_PATH') . date('y_m_d') . '.log';

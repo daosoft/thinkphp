@@ -17,27 +17,27 @@ class Upyun
     private $error = '';
 
     private $config = array(
-        'host'     => '', //又拍云服务器
+        'host' => '', //又拍云服务器
         'username' => '', //又拍云用户
         'password' => '', //又拍云密码
-        'bucket'   => '', //空间名称
-        'timeout'  => 90, //超时时间
+        'bucket' => '', //空间名称
+        'timeout' => 90, //超时时间
     );
 
     /**
      * 构造函数，用于设置上传根路径
-     * @param array  $config FTP配置
+     * @param array $config FTP配置
      */
     public function __construct($config)
     {
         /* 默认FTP配置 */
-        $this->config             = array_merge($this->config, $config);
+        $this->config = array_merge($this->config, $config);
         $this->config['password'] = md5($this->config['password']);
     }
 
     /**
      * 检测上传根目录(又拍云上传时支持自动创建目录，直接返回)
-     * @param string $rootpath   根目录
+     * @param string $rootpath 根目录
      * @return boolean true-检测通过，false-检测失败
      */
     public function checkRootPath($rootpath)
@@ -49,7 +49,7 @@ class Upyun
 
     /**
      * 检测上传目录(又拍云上传时支持自动创建目录，直接返回)
-     * @param  string $savepath 上传目录
+     * @param string $savepath 上传目录
      * @return boolean          检测结果，true-通过，false-失败
      */
     public function checkSavePath($savepath)
@@ -59,7 +59,7 @@ class Upyun
 
     /**
      * 创建文件夹 (又拍云上传时支持自动创建目录，直接返回)
-     * @param  string $savepath 目录名称
+     * @param string $savepath 目录名称
      * @return boolean          true-创建成功，false-创建失败
      */
     public function mkdir($savepath)
@@ -69,16 +69,16 @@ class Upyun
 
     /**
      * 保存指定文件
-     * @param  array   $file    保存的文件信息
-     * @param  boolean $replace 同名文件是否覆盖
+     * @param array $file 保存的文件信息
+     * @param boolean $replace 同名文件是否覆盖
      * @return boolean          保存状态，true-成功，false-失败
      */
     public function save($file, $replace = true)
     {
         $header['Content-Type'] = $file['type'];
-        $header['Content-MD5']  = $file['md5'];
-        $header['Mkdir']        = 'true';
-        $resource               = fopen($file['tmp_name'], 'r');
+        $header['Content-MD5'] = $file['md5'];
+        $header['Mkdir'] = 'true';
+        $resource = fopen($file['tmp_name'], 'r');
 
         $save = $this->rootPath . $file['savepath'] . $file['savename'];
         $data = $this->request($save, 'PUT', $header, $resource);
@@ -96,16 +96,16 @@ class Upyun
 
     /**
      * 请求又拍云服务器
-     * @param  string   $path    请求的PATH
-     * @param  string   $method  请求方法
-     * @param  array    $headers 请求header
-     * @param  resource $body    上传文件资源
+     * @param string $path 请求的PATH
+     * @param string $method 请求方法
+     * @param array $headers 请求header
+     * @param resource $body 上传文件资源
      * @return boolean
      */
     private function request($path, $method, $headers = null, $body = null)
     {
         $uri = "/{$this->config['bucket']}/{$path}";
-        $ch  = curl_init($this->config['host'] . $uri);
+        $ch = curl_init($this->config['host'] . $uri);
 
         $_headers = array('Expect:');
         if (!is_null($headers) && is_array($headers)) {
@@ -115,7 +115,7 @@ class Upyun
         }
 
         $length = 0;
-        $date   = gmdate('D, d M Y H:i:s \G\M\T');
+        $date = gmdate('D, d M Y H:i:s \G\M\T');
 
         if (!is_null($body)) {
             if (is_resource($body)) {
@@ -156,7 +156,7 @@ class Upyun
         }
 
         $response = curl_exec($ch);
-        $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
         list($header, $body) = explode("\r\n\r\n", $response, 2);
 
@@ -175,17 +175,17 @@ class Upyun
 
     /**
      * 获取响应数据
-     * @param  string $text 响应头字符串
+     * @param string $text 响应头字符串
      * @return array        响应数据列表
      */
     private function response($text)
     {
         $headers = explode("\r\n", $text);
-        $items   = array();
+        $items = array();
         foreach ($headers as $header) {
             $header = trim($header);
             if (strpos($header, 'x-upyun') !== false) {
-                list($k, $v)     = explode(':', $header);
+                list($k, $v) = explode(':', $header);
                 $items[trim($k)] = in_array(substr($k, 8, 5), array('width', 'heigh', 'frame')) ? intval($v) : trim($v);
             }
         }
@@ -194,10 +194,10 @@ class Upyun
 
     /**
      * 生成请求签名
-     * @param  string  $method 请求方法
-     * @param  string  $uri    请求URI
-     * @param  string  $date   请求时间
-     * @param  integer $length 请求内容大小
+     * @param string $method 请求方法
+     * @param string $uri 请求URI
+     * @param string $date 请求时间
+     * @param integer $length 请求内容大小
      * @return string          请求签名
      */
     private function sign($method, $uri, $date, $length)
@@ -208,14 +208,14 @@ class Upyun
 
     /**
      * 获取请求错误信息
-     * @param  string $header 请求返回头信息
+     * @param string $header 请求返回头信息
      */
     private function error($header)
     {
-        list($status, $stash)     = explode("\r\n", $header, 2);
+        list($status, $stash) = explode("\r\n", $header, 2);
         list($v, $code, $message) = explode(" ", $status, 3);
-        $message                  = is_null($message) ? 'File Not Found' : "[{$status}]:{$message}";
-        $this->error              = $message;
+        $message = is_null($message) ? 'File Not Found' : "[{$status}]:{$message}";
+        $this->error = $message;
     }
 
 }

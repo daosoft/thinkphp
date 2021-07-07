@@ -26,7 +26,7 @@ class Cache
      * 连接缓存
      * @access public
      * @param string $type 缓存类型
-     * @param array $options  配置数组
+     * @param array $options 配置数组
      * @return object
      */
     public function connect($type = '', $options = array())
@@ -54,9 +54,9 @@ class Cache
     public static function getInstance($type = '', $options = array())
     {
         static $_instance = array();
-        $guid             = $type . to_guid_string($options);
+        $guid = $type . to_guid_string($options);
         if (!isset($_instance[$guid])) {
-            $obj              = new Cache();
+            $obj = new Cache();
             $_instance[$guid] = $obj->connect($type, $options);
         }
         return $_instance[$guid];
@@ -76,6 +76,7 @@ class Cache
     {
         $this->rm($name);
     }
+
     public function setOptions($name, $value)
     {
         $this->options[$name] = $value;
@@ -96,14 +97,14 @@ class Cache
     protected function queue($key)
     {
         static $_handler = array(
-            'file'   => array('F', 'F'),
+            'file' => array('F', 'F'),
             'xcache' => array('xcache_get', 'xcache_set'),
-            'apc'    => array('apc_fetch', 'apc_store'),
+            'apc' => array('apc_fetch', 'apc_store'),
         );
-        $queue      = isset($this->options['queue']) ? $this->options['queue'] : 'file';
-        $fun        = isset($_handler[$queue]) ? $_handler[$queue] : $_handler['file'];
+        $queue = isset($this->options['queue']) ? $this->options['queue'] : 'file';
+        $fun = isset($_handler[$queue]) ? $_handler[$queue] : $_handler['file'];
         $queue_name = isset($this->options['queue_name']) ? $this->options['queue_name'] : 'think_queue';
-        $value      = $fun[0]($queue_name);
+        $value = $fun[0]($queue_name);
         if (!$value) {
             $value = array();
         }

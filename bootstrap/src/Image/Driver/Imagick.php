@@ -29,7 +29,7 @@ class Imagick
 
     /**
      * 打开一张图像
-     * @param  string $imgname 图像路径
+     * @param string $imgname 图像路径
      */
     public function open($imgname)
     {
@@ -46,19 +46,19 @@ class Imagick
 
         //设置图像信息
         $this->info = array(
-            'width'  => $this->img->getImageWidth(),
+            'width' => $this->img->getImageWidth(),
             'height' => $this->img->getImageHeight(),
-            'type'   => strtolower($this->img->getImageFormat()),
-            'mime'   => $this->img->getImageMimeType(),
+            'type' => strtolower($this->img->getImageFormat()),
+            'mime' => $this->img->getImageMimeType(),
         );
     }
 
     /**
      * 保存图像
-     * @param  string  $imgname   图像保存名称
-     * @param  string  $type      图像类型
-     * @param  integer $quality   JPEG图像质量
-     * @param  boolean $interlace 是否对JPEG类型图像设置隔行扫描
+     * @param string $imgname 图像保存名称
+     * @param string $type 图像类型
+     * @param integer $quality JPEG图像质量
+     * @param boolean $interlace 是否对JPEG类型图像设置隔行扫描
      */
     public function save($imgname, $type = null, $quality = 80, $interlace = true)
     {
@@ -161,12 +161,12 @@ class Imagick
 
     /**
      * 裁剪图像
-     * @param  integer $w      裁剪区域宽度
-     * @param  integer $h      裁剪区域高度
-     * @param  integer $x      裁剪区域x坐标
-     * @param  integer $y      裁剪区域y坐标
-     * @param  integer $width  图像保存宽度
-     * @param  integer $height 图像保存高度
+     * @param integer $w 裁剪区域宽度
+     * @param integer $h 裁剪区域高度
+     * @param integer $x 裁剪区域x坐标
+     * @param integer $y 裁剪区域y坐标
+     * @param integer $width 图像保存宽度
+     * @param integer $height 图像保存高度
      */
     public function crop($w, $h, $x = 0, $y = 0, $width = null, $height = null)
     {
@@ -175,7 +175,7 @@ class Imagick
         }
 
         //设置保存尺寸
-        empty($width) && $width   = $w;
+        empty($width) && $width = $w;
         empty($height) && $height = $h;
 
         //裁剪图片
@@ -214,15 +214,15 @@ class Imagick
         }
 
         //设置缓存尺寸
-        $this->info['width']  = $width;
+        $this->info['width'] = $width;
         $this->info['height'] = $height;
     }
 
     /**
      * 生成缩略图
-     * @param  integer $width  缩略图最大宽度
-     * @param  integer $height 缩略图最大高度
-     * @param  integer $type   缩略图裁剪类型
+     * @param integer $width 缩略图最大宽度
+     * @param integer $height 缩略图最大高度
+     * @param integer $type 缩略图裁剪类型
      */
     public function thumb($width, $height, $type = Image::IMAGE_THUMB_SCALE)
     {
@@ -247,8 +247,8 @@ class Imagick
                 $scale = min($width / $w, $height / $h);
 
                 //设置缩略图的坐标及宽度和高度
-                $x      = $y      = 0;
-                $width  = $w * $scale;
+                $x = $y = 0;
+                $width = $w * $scale;
                 $height = $h * $scale;
                 break;
 
@@ -308,7 +308,7 @@ class Imagick
 
                 if ('gif' == $this->info['type']) {
                     $imgs = $this->img->coalesceImages();
-                    $img  = new \Imagick();
+                    $img = new \Imagick();
                     $this->img->destroy(); //销毁原图
 
                     //循环填充每一帧
@@ -339,7 +339,7 @@ class Imagick
                 }
 
                 //设置新图像属性
-                $this->info['width']  = $width;
+                $this->info['width'] = $width;
                 $this->info['height'] = $height;
                 return;
 
@@ -373,9 +373,9 @@ class Imagick
 
     /**
      * 添加水印
-     * @param  string  $source 水印图片路径
-     * @param  integer $locate 水印位置
-     * @param  integer $alpha  水印透明度
+     * @param string $source 水印图片路径
+     * @param integer $locate 水印位置
+     * @param integer $alpha 水印透明度
      */
     public function water($source, $locate = Image::IMAGE_WATER_SOUTHEAST, $alpha = 80)
     {
@@ -390,7 +390,7 @@ class Imagick
 
         //创建水印图像资源
         $water = new \Imagick(realpath($source));
-        $info  = array($water->getImageWidth(), $water->getImageHeight());
+        $info = array($water->getImageWidth(), $water->getImageHeight());
 
         /* 设定水印位置 */
         switch ($locate) {
@@ -485,16 +485,17 @@ class Imagick
 
     /**
      * 图像添加文字
-     * @param  string  $text   添加的文字
-     * @param  string  $font   字体路径
-     * @param  integer $size   字号
-     * @param  string  $color  文字颜色
-     * @param  integer $locate 文字写入位置
-     * @param  integer $offset 文字相对当前位置的偏移量
-     * @param  integer $angle  文字倾斜角度
+     * @param string $text 添加的文字
+     * @param string $font 字体路径
+     * @param integer $size 字号
+     * @param string $color 文字颜色
+     * @param integer $locate 文字写入位置
+     * @param integer $offset 文字相对当前位置的偏移量
+     * @param integer $angle 文字倾斜角度
      */
     public function text($text, $font, $size, $color = '#00000000',
-        $locate = Image::IMAGE_WATER_SOUTHEAST, $offset = 0, $angle = 0) {
+                         $locate = Image::IMAGE_WATER_SOUTHEAST, $offset = 0, $angle = 0)
+    {
         //资源检测
         if (empty($this->img)) {
             E('没有可以被写入文字的图像资源');
@@ -598,11 +599,11 @@ class Imagick
 
         /* 设置偏移量 */
         if (is_array($offset)) {
-            $offset        = array_map('intval', $offset);
+            $offset = array_map('intval', $offset);
             list($ox, $oy) = $offset;
         } else {
             $offset = intval($offset);
-            $ox     = $oy     = $offset;
+            $ox = $oy = $offset;
         }
 
         /* 写入文字 */

@@ -15,10 +15,10 @@ class Template
     // 当前模板文件
     protected $templateFile = '';
     // 模板变量
-    public $tVar     = array();
-    public $config   = array();
+    public $tVar = array();
+    public $config = array();
     private $literal = array();
-    private $block   = array();
+    private $block = array();
 
     /**
      * 架构函数
@@ -26,17 +26,17 @@ class Template
      */
     public function __construct()
     {
-        $this->config['cache_path']      = C('CACHE_PATH');
+        $this->config['cache_path'] = C('CACHE_PATH');
         $this->config['template_suffix'] = C('TMPL_TEMPLATE_SUFFIX');
-        $this->config['cache_suffix']    = C('TMPL_CACHFILE_SUFFIX');
-        $this->config['tmpl_cache']      = C('TMPL_CACHE_ON');
-        $this->config['cache_time']      = C('TMPL_CACHE_TIME');
-        $this->config['taglib_begin']    = $this->stripPreg(C('TAGLIB_BEGIN'));
-        $this->config['taglib_end']      = $this->stripPreg(C('TAGLIB_END'));
-        $this->config['tmpl_begin']      = $this->stripPreg(C('TMPL_L_DELIM'));
-        $this->config['tmpl_end']        = $this->stripPreg(C('TMPL_R_DELIM'));
-        $this->config['default_tmpl']    = C('TEMPLATE_NAME');
-        $this->config['layout_item']     = C('TMPL_LAYOUT_ITEM');
+        $this->config['cache_suffix'] = C('TMPL_CACHFILE_SUFFIX');
+        $this->config['tmpl_cache'] = C('TMPL_CACHE_ON');
+        $this->config['cache_time'] = C('TMPL_CACHE_TIME');
+        $this->config['taglib_begin'] = $this->stripPreg(C('TAGLIB_BEGIN'));
+        $this->config['taglib_end'] = $this->stripPreg(C('TAGLIB_END'));
+        $this->config['tmpl_begin'] = $this->stripPreg(C('TMPL_L_DELIM'));
+        $this->config['tmpl_end'] = $this->stripPreg(C('TMPL_R_DELIM'));
+        $this->config['default_tmpl'] = C('TEMPLATE_NAME');
+        $this->config['layout_item'] = C('TMPL_LAYOUT_ITEM');
     }
 
     private function stripPreg($str)
@@ -67,13 +67,13 @@ class Template
      * 加载模板
      * @access public
      * @param string $templateFile 模板文件
-     * @param array  $templateVar 模板变量
+     * @param array $templateVar 模板变量
      * @param string $prefix 模板标识前缀
      * @return void
      */
     public function fetch($templateFile, $templateVar, $prefix = '')
     {
-        $this->tVar        = $templateVar;
+        $this->tVar = $templateVar;
         $templateCacheFile = $this->loadTemplate($templateFile, $prefix);
         Storage::load($templateCacheFile, $this->tVar, null, 'tpl');
     }
@@ -155,7 +155,7 @@ class Template
         }
 
         $begin = $this->config['taglib_begin'];
-        $end   = $this->config['taglib_end'];
+        $end = $this->config['taglib_end'];
         // 检查include语法
         $content = $this->parseInclude($content);
         // 检查PHP语法
@@ -221,7 +221,7 @@ class Template
             if (!C('LAYOUT_ON') || C('LAYOUT_NAME') != $array['name']) {
                 // 读取布局模板
                 $layoutFile = THEME_PATH . $array['name'] . $this->config['template_suffix'];
-                $replace    = isset($array['replace']) ? $array['replace'] : $this->config['layout_item'];
+                $replace = isset($array['replace']) ? $array['replace'] : $this->config['layout_item'];
                 // 替换布局的主体内容
                 $content = str_replace($replace, $content, file_get_contents($layoutFile));
             }
@@ -246,8 +246,8 @@ class Template
         if ($find) {
             for ($i = 0; $i < $find; $i++) {
                 $include = $matches[1][$i];
-                $array   = $this->parseXmlAttrs($include);
-                $file    = $array['file'];
+                $array = $this->parseXmlAttrs($include);
+                $file = $array['file'];
                 unset($array['file']);
                 $content = str_replace($matches[0][$i], $this->parseIncludeItem($file, $array, $extend), $content);
             }
@@ -259,7 +259,7 @@ class Template
     protected function parseExtend($content)
     {
         $begin = $this->config['taglib_begin'];
-        $end   = $this->config['taglib_end'];
+        $end = $this->config['taglib_end'];
         // 读取模板中的继承标签
         $find = preg_match('/' . $begin . 'extend\s(.+?)\s*?\/' . $end . '/is', $content, $matches);
         if ($find) {
@@ -268,13 +268,15 @@ class Template
             // 记录页面中的block标签
             preg_replace_callback('/' . $begin . 'block\sname=[\'"](.+?)[\'"]\s*?' . $end . '(.*?)' . $begin . '\/block' . $end . '/is', array($this, 'parseBlock'), $content);
             // 读取继承模板
-            $array   = $this->parseXmlAttrs($matches[1]);
+            $array = $this->parseXmlAttrs($matches[1]);
             $content = $this->parseTemplateName($array['name']);
             $content = $this->parseInclude($content, false); //对继承模板中的include进行分析
             // 替换block标签
             $content = $this->replaceBlock($content);
         } else {
-            $content = preg_replace_callback('/' . $begin . 'block\sname=[\'"](.+?)[\'"]\s*?' . $end . '(.*?)' . $begin . '\/block' . $end . '/is', function ($match) {return stripslashes($match[2]);}, $content);
+            $content = preg_replace_callback('/' . $begin . 'block\sname=[\'"](.+?)[\'"]\s*?' . $end . '(.*?)' . $begin . '\/block' . $end . '/is', function ($match) {
+                return stripslashes($match[2]);
+            }, $content);
         }
         return $content;
     }
@@ -282,7 +284,7 @@ class Template
     /**
      * 分析XML属性
      * @access private
-     * @param string $attrs  XML属性字符串
+     * @param string $attrs XML属性字符串
      * @return array
      */
     private function parseXmlAttrs($attrs)
@@ -293,7 +295,7 @@ class Template
             E(L('_XML_TAG_ERROR_'));
         }
 
-        $xml   = (array) ($xml->tag->attributes());
+        $xml = (array)($xml->tag->attributes());
         $array = array_change_key_case($xml['@attributes']);
         return $array;
     }
@@ -301,7 +303,7 @@ class Template
     /**
      * 替换页面中的literal标签
      * @access private
-     * @param string $content  模板内容
+     * @param string $content 模板内容
      * @return string|false
      */
     private function parseLiteral($content)
@@ -315,8 +317,8 @@ class Template
         }
 
         //$content            =   stripslashes($content);
-        $i                 = count($this->literal);
-        $parseStr          = "<!--###literal{$i}###-->";
+        $i = count($this->literal);
+        $parseStr = "<!--###literal{$i}###-->";
         $this->literal[$i] = $content;
         return $parseStr;
     }
@@ -324,7 +326,7 @@ class Template
     /**
      * 还原被替换的literal标签
      * @access private
-     * @param string $tag  literal标签序号
+     * @param string $tag literal标签序号
      * @return string|false
      */
     private function restoreLiteral($tag)
@@ -344,14 +346,14 @@ class Template
      * 记录当前页面中的block标签
      * @access private
      * @param string $name block名称
-     * @param string $content  模板内容
+     * @param string $content 模板内容
      * @return string
      */
     private function parseBlock($name, $content = '')
     {
         if (is_array($name)) {
             $content = $name[2];
-            $name    = $name[1];
+            $name = $name[1];
         }
         $this->block[$name] = $content;
         return '';
@@ -360,15 +362,15 @@ class Template
     /**
      * 替换继承模板中的block标签
      * @access private
-     * @param string $content  模板内容
+     * @param string $content 模板内容
      * @return string
      */
     private function replaceBlock($content)
     {
         static $parse = 0;
-        $begin        = $this->config['taglib_begin'];
-        $end          = $this->config['taglib_end'];
-        $reg          = '/(' . $begin . 'block\sname=[\'"](.+?)[\'"]\s*?' . $end . ')(.*?)' . $begin . '\/block' . $end . '/is';
+        $begin = $this->config['taglib_begin'];
+        $end = $this->config['taglib_end'];
+        $reg = '/(' . $begin . 'block\sname=[\'"](.+?)[\'"]\s*?' . $end . ')(.*?)' . $begin . '\/block' . $end . '/is';
         if (is_string($content)) {
             do {
                 $content = preg_replace_callback($reg, array($this, 'replaceBlock'), $content);
@@ -377,11 +379,11 @@ class Template
         } elseif (is_array($content)) {
             if (preg_match('/' . $begin . 'block\sname=[\'"](.+?)[\'"]\s*?' . $end . '/is', $content[3])) {
                 //存在嵌套，进一步解析
-                $parse      = 1;
+                $parse = 1;
                 $content[3] = preg_replace_callback($reg, array($this, 'replaceBlock'), "{$content[3]}{$begin}/block{$end}");
                 return $content[1] . $content[3];
             } else {
-                $name    = $content[2];
+                $name = $content[2];
                 $content = $content[3];
                 $content = isset($this->block[$name]) ? $this->block[$name] : $content;
                 return $content;
@@ -393,7 +395,7 @@ class Template
      * 搜索模板页面中包含的TagLib库
      * 并返回列表
      * @access public
-     * @param string $content  模板内容
+     * @param string $content 模板内容
      * @return string|false
      */
     public function getIncludeTagLib(&$content)
@@ -404,7 +406,7 @@ class Template
             //替换TagLib标签
             $content = str_replace($matches[0], '', $content);
             //解析TagLib标签
-            $array        = $this->parseXmlAttrs($matches[1]);
+            $array = $this->parseXmlAttrs($matches[1]);
             $this->tagLib = explode(',', $array['name']);
         }
         return;
@@ -421,11 +423,11 @@ class Template
     public function parseTagLib($tagLib, &$content, $hide = false)
     {
         $begin = $this->config['taglib_begin'];
-        $end   = $this->config['taglib_end'];
+        $end = $this->config['taglib_end'];
         if (strpos($tagLib, '\\')) {
             // 支持指定标签库的命名空间
             $className = $tagLib;
-            $tagLib    = substr($tagLib, strrpos($tagLib, '\\') + 1);
+            $tagLib = substr($tagLib, strrpos($tagLib, '\\') + 1);
         } else {
             $className = 'Think\\Template\TagLib\\' . ucwords($tagLib);
         }
@@ -435,10 +437,10 @@ class Template
             $tags = array($name);
             if (isset($val['alias'])) {
 // 别名设置
-                $tags   = explode(',', $val['alias']);
+                $tags = explode(',', $val['alias']);
                 $tags[] = $name;
             }
-            $level    = isset($val['level']) ? $val['level'] : 1;
+            $level = isset($val['level']) ? $val['level'] : 1;
             $closeTag = isset($val['close']) ? $val['close'] : true;
             foreach ($tags as $tag) {
                 $parseTag = !$hide ? $tagLib . ':' . $tag : $tag; // 实际要解析的标签名称
@@ -446,12 +448,12 @@ class Template
                     // 别名可以无需定义解析方法
                     $tag = $name;
                 }
-                $n1            = empty($val['attr']) ? '(\s*?)' : '\s([^' . $end . ']*)';
+                $n1 = empty($val['attr']) ? '(\s*?)' : '\s([^' . $end . ']*)';
                 $this->tempVar = array($tagLib, $tag);
 
                 if (!$closeTag) {
                     $patterns = '/' . $begin . $parseTag . $n1 . '\/(\s*?)' . $end . '/is';
-                    $content  = preg_replace_callback($patterns, function ($matches) use ($tLib, $tag, $that) {
+                    $content = preg_replace_callback($patterns, function ($matches) use ($tLib, $tag, $that) {
                         return $that->parseXmlTag($tLib, $tag, $matches[1], $matches[2]);
                     }, $content);
                 } else {
@@ -470,10 +472,10 @@ class Template
      * 解析标签库的标签
      * 需要调用对应的标签库文件解析类
      * @access public
-     * @param object $tagLib  标签库对象实例
-     * @param string $tag  标签名
-     * @param string $attr  标签属性
-     * @param string $content  标签内容
+     * @param object $tagLib 标签库对象实例
+     * @param string $tag 标签名
+     * @param string $attr 标签属性
+     * @param string $content 标签内容
      * @return string|false
      */
     public function parseXmlTag($tagLib, $tag, $attr, $content)
@@ -482,9 +484,9 @@ class Template
             $attr = str_replace('\"', '\'', $attr);
         }
 
-        $parse   = '_' . $tag;
+        $parse = '_' . $tag;
         $content = trim($content);
-        $tags    = $tagLib->parseXmlAttr($attr, $tag);
+        $tags = $tagLib->parseXmlAttr($attr, $tag);
         return $tagLib->$parse($tags, $content);
     }
 
@@ -504,9 +506,9 @@ class Template
         //if (MAGIC_QUOTES_GPC) {
         $tagStr = stripslashes($tagStr);
         //}
-        $flag  = substr($tagStr, 0, 1);
+        $flag = substr($tagStr, 0, 1);
         $flag2 = substr($tagStr, 1, 1);
-        $name  = substr($tagStr, 1);
+        $name = substr($tagStr, 1);
         if ('$' == $flag && '.' != $flag2 && '(' != $flag2) {
             //解析模板变量 格式 {$varName}
             return $this->parseVar($name);
@@ -536,14 +538,14 @@ class Template
      */
     public function parseVar($varStr)
     {
-        $varStr               = trim($varStr);
+        $varStr = trim($varStr);
         static $_varParseList = array();
         //如果已经解析过该变量字串，则直接返回变量值
         if (isset($_varParseList[$varStr])) {
             return $_varParseList[$varStr];
         }
 
-        $parseStr  = '';
+        $parseStr = '';
         $varExists = true;
         if (!empty($varStr)) {
             $varArray = explode('|', $varStr);
@@ -555,7 +557,7 @@ class Template
             } elseif (false !== strpos($var, '.')) {
                 //支持 {$var.property}
                 $vars = explode('.', $var);
-                $var  = array_shift($vars);
+                $var = array_shift($vars);
                 switch (strtolower(C('TMPL_VAR_IDENTIFY'))) {
                     case 'array': // 识别为数组
                         $name = '$' . $var;
@@ -582,9 +584,9 @@ class Template
             } elseif (false !== strpos($var, ':') && false === strpos($var, '(') && false === strpos($var, '::') && false === strpos($var, '?')) {
                 //支持 {$var:property} 方式输出对象的属性
                 $vars = explode(':', $var);
-                $var  = str_replace(':', '->', $var);
+                $var = str_replace(':', '->', $var);
                 $name = "$" . $var;
-                $var  = $vars[0];
+                $var = $vars[0];
             } else {
                 $name = "$$var";
             }
@@ -604,7 +606,7 @@ class Template
      * 格式 {$varname|function1|function2=arg1,arg2}
      * @access public
      * @param string $name 变量名
-     * @param array $varArray  函数列表
+     * @param array $varArray 函数列表
      * @return string
      */
     public function parseVarFunction($name, $varArray)
@@ -626,7 +628,7 @@ class Template
                         if (isset($args[1])) {
                             if (strstr($args[1], '###')) {
                                 $args[1] = str_replace('###', $name, $args[1]);
-                                $name    = "$fun($args[1])";
+                                $name = "$fun($args[1])";
                             } else {
                                 $name = "$fun($name,$args[1])";
                             }
@@ -643,13 +645,13 @@ class Template
      * 特殊模板变量解析
      * 格式 以 $Think. 打头的变量属于特殊模板变量
      * @access public
-     * @param string $varStr  变量字符串
+     * @param string $varStr 变量字符串
      * @return string
      */
     public function parseThinkVar($varStr)
     {
-        $vars     = explode('.', $varStr);
-        $vars[1]  = strtoupper(trim($vars[1]));
+        $vars = explode('.', $varStr);
+        $vars[1] = strtoupper(trim($vars[1]));
         $parseStr = '';
         if (count($vars) >= 3) {
             $vars[2] = trim($vars[2]);
@@ -695,7 +697,8 @@ class Template
                     }
                     $parseStr = 'C("' . $vars[2] . '")';
                     break;
-                default:break;
+                default:
+                    break;
             }
         } else if (count($vars) == 2) {
             switch ($vars[1]) {
@@ -727,8 +730,8 @@ class Template
     /**
      * 加载公共模板并缓存 和当前模板在同一路径，否则使用相对路径
      * @access private
-     * @param string $tmplPublicName  公共模板文件名
-     * @param array $vars  要传递的变量列表
+     * @param string $tmplPublicName 公共模板文件名
+     * @param array $vars 要传递的变量列表
      * @return string
      */
     private function parseIncludeItem($tmplPublicName, $vars = array(), $extend)
@@ -746,18 +749,17 @@ class Template
     /**
      * 分析加载的模板文件并读取内容 支持多个模板文件读取
      * @access private
-     * @param string $tmplPublicName  模板文件名
+     * @param string $tmplPublicName 模板文件名
      * @return string
      */
     private function parseTemplateName($templateName)
     {
-        if (substr($templateName, 0, 1) == '$')
-        //支持加载变量文件名
+        if (substr($templateName, 0, 1) == '$') //支持加载变量文件名
         {
             $templateName = $this->get(substr($templateName, 1));
         }
 
-        $array    = explode(',', $templateName);
+        $array = explode(',', $templateName);
         $parseStr = '';
         foreach ($array as $templateName) {
             if (empty($templateName)) {

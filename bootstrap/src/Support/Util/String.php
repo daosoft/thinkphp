@@ -13,13 +13,13 @@ class String
     {
         $charid = md5(uniqid(mt_rand(), true));
         $hyphen = chr(45); // "-"
-        $uuid   = chr(123) // "{"
-         . substr($charid, 0, 8) . $hyphen
-        . substr($charid, 8, 4) . $hyphen
-        . substr($charid, 12, 4) . $hyphen
-        . substr($charid, 16, 4) . $hyphen
-        . substr($charid, 20, 12)
-        . chr(125); // "}"
+        $uuid = chr(123) // "{"
+            . substr($charid, 0, 8) . $hyphen
+            . substr($charid, 8, 4) . $hyphen
+            . substr($charid, 12, 4) . $hyphen
+            . substr($charid, 16, 4) . $hyphen
+            . substr($charid, 20, 12)
+            . chr(125); // "}"
         return $uuid;
     }
 
@@ -39,10 +39,10 @@ class String
      */
     public static function isUtf8($str)
     {
-        $c    = 0;
-        $b    = 0;
+        $c = 0;
+        $b = 0;
         $bits = 0;
-        $len  = strlen($str);
+        $len = strlen($str);
         for ($i = 0; $i < $len; $i++) {
             $c = ord($str[$i]);
             if ($c > 128) {
@@ -98,10 +98,10 @@ class String
         } elseif (function_exists('iconv_substr')) {
             $slice = iconv_substr($str, $start, $length, $charset);
         } else {
-            $re['utf-8']  = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
+            $re['utf-8'] = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
             $re['gb2312'] = "/[\x01-\x7f]|[\xb0-\xf7][\xa0-\xfe]/";
-            $re['gbk']    = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
-            $re['big5']   = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
+            $re['gbk'] = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
+            $re['big5'] = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
             preg_match_all($re[$charset], $str, $match);
             $slice = join("", array_slice($match[0], $start, $length));
         }
@@ -147,7 +147,7 @@ class String
         }
         if (4 != $type) {
             $chars = str_shuffle($chars);
-            $str   = substr($chars, 0, $len);
+            $str = substr($chars, 0, $len);
         } else {
             // 中文随机字
             for ($i = 0; $i < $len; $i++) {
@@ -197,7 +197,7 @@ class String
      */
     public static function buildFormatRand($format, $number = 1)
     {
-        $str    = array();
+        $str = array();
         $length = strlen($format);
         for ($j = 0; $j < $number; $j++) {
             $strtemp = '';
@@ -238,7 +238,7 @@ class String
     public static function autoCharset($string, $from = 'gbk', $to = 'utf-8')
     {
         $from = strtoupper($from) == 'UTF8' ? 'utf-8' : $from;
-        $to   = strtoupper($to) == 'UTF8' ? 'utf-8' : $to;
+        $to = strtoupper($to) == 'UTF8' ? 'utf-8' : $to;
         if (strtoupper($from) === strtoupper($to) || empty($string) || (is_scalar($string) && !is_string($string))) {
             //如果编码相同或者非字符串标量则不转换
             return $string;
@@ -253,7 +253,7 @@ class String
             }
         } elseif (is_array($string)) {
             foreach ($string as $key => $val) {
-                $_key          = self::autoCharset($key, $from, $to);
+                $_key = self::autoCharset($key, $from, $to);
                 $string[$_key] = self::autoCharset($val, $from, $to);
                 if ($key != $_key) {
                     unset($string[$key]);

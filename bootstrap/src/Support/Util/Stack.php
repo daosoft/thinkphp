@@ -11,7 +11,7 @@ class Stack extends ArrayList
     /**
      * 架构函数
      * @access public
-     * @param array $values  初始化数组元素
+     * @param array $values 初始化数组元素
      */
     public function __construct($values = array())
     {

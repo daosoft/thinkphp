@@ -8,7 +8,7 @@ namespace Think;
 class Db
 {
 
-    private static $instance  = array(); //  数据库连接实例
+    private static $instance = array(); //  数据库连接实例
     private static $_instance = null; //  当前数据库连接实例
 
     /**
@@ -57,39 +57,39 @@ class Db
             }
             $config = array_change_key_case($config);
             $config = array(
-                'type'        => $config['db_type'],
-                'username'    => $config['db_user'],
-                'password'    => $config['db_pwd'],
-                'hostname'    => $config['db_host'],
-                'hostport'    => $config['db_port'],
-                'database'    => $config['db_name'],
-                'dsn'         => isset($config['db_dsn']) ? $config['db_dsn'] : null,
-                'params'      => isset($config['db_params']) ? $config['db_params'] : null,
-                'charset'     => isset($config['db_charset']) ? $config['db_charset'] : 'utf8',
-                'deploy'      => isset($config['db_deploy_type']) ? $config['db_deploy_type'] : 0,
+                'type' => $config['db_type'],
+                'username' => $config['db_user'],
+                'password' => $config['db_pwd'],
+                'hostname' => $config['db_host'],
+                'hostport' => $config['db_port'],
+                'database' => $config['db_name'],
+                'dsn' => isset($config['db_dsn']) ? $config['db_dsn'] : null,
+                'params' => isset($config['db_params']) ? $config['db_params'] : null,
+                'charset' => isset($config['db_charset']) ? $config['db_charset'] : 'utf8',
+                'deploy' => isset($config['db_deploy_type']) ? $config['db_deploy_type'] : 0,
                 'rw_separate' => isset($config['db_rw_separate']) ? $config['db_rw_separate'] : false,
-                'master_num'  => isset($config['db_master_num']) ? $config['db_master_num'] : 1,
-                'slave_no'    => isset($config['db_slave_no']) ? $config['db_slave_no'] : '',
-                'debug'       => isset($config['db_debug']) ? $config['db_debug'] : APP_DEBUG,
-                'lite'        => isset($config['db_lite']) ? $config['db_lite'] : false,
+                'master_num' => isset($config['db_master_num']) ? $config['db_master_num'] : 1,
+                'slave_no' => isset($config['db_slave_no']) ? $config['db_slave_no'] : '',
+                'debug' => isset($config['db_debug']) ? $config['db_debug'] : APP_DEBUG,
+                'lite' => isset($config['db_lite']) ? $config['db_lite'] : false,
             );
         } else {
             $config = array(
-                'type'        => C('DB_TYPE'),
-                'username'    => C('DB_USER'),
-                'password'    => C('DB_PWD'),
-                'hostname'    => C('DB_HOST'),
-                'hostport'    => C('DB_PORT'),
-                'database'    => C('DB_NAME'),
-                'dsn'         => C('DB_DSN'),
-                'params'      => C('DB_PARAMS'),
-                'charset'     => C('DB_CHARSET'),
-                'deploy'      => C('DB_DEPLOY_TYPE'),
+                'type' => C('DB_TYPE'),
+                'username' => C('DB_USER'),
+                'password' => C('DB_PWD'),
+                'hostname' => C('DB_HOST'),
+                'hostport' => C('DB_PORT'),
+                'database' => C('DB_NAME'),
+                'dsn' => C('DB_DSN'),
+                'params' => C('DB_PARAMS'),
+                'charset' => C('DB_CHARSET'),
+                'deploy' => C('DB_DEPLOY_TYPE'),
                 'rw_separate' => C('DB_RW_SEPARATE'),
-                'master_num'  => C('DB_MASTER_NUM'),
-                'slave_no'    => C('DB_SLAVE_NO'),
-                'debug'       => C('DB_DEBUG', null, APP_DEBUG),
-                'lite'        => C('DB_LITE'),
+                'master_num' => C('DB_MASTER_NUM'),
+                'slave_no' => C('DB_SLAVE_NO'),
+                'debug' => C('DB_DEBUG', null, APP_DEBUG),
+                'lite' => C('DB_LITE'),
             );
         }
         return $config;
@@ -105,19 +105,21 @@ class Db
      */
     private static function parseDsn($dsnStr)
     {
-        if (empty($dsnStr)) {return false;}
+        if (empty($dsnStr)) {
+            return false;
+        }
         $info = parse_url($dsnStr);
         if (!$info) {
             return false;
         }
         $dsn = array(
-            'type'     => $info['scheme'],
+            'type' => $info['scheme'],
             'username' => isset($info['user']) ? $info['user'] : '',
             'password' => isset($info['pass']) ? $info['pass'] : '',
             'hostname' => isset($info['host']) ? $info['host'] : '',
             'hostport' => isset($info['port']) ? $info['port'] : '',
             'database' => isset($info['path']) ? ltrim($info['path'], '/') : '',
-            'charset'  => isset($info['fragment']) ? $info['fragment'] : 'utf8',
+            'charset' => isset($info['fragment']) ? $info['fragment'] : 'utf8',
         );
 
         if (isset($info['query'])) {

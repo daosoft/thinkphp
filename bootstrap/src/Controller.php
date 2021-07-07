@@ -93,7 +93,7 @@ abstract class Controller
      */
     protected function buildHtml($htmlfile = '', $htmlpath = '', $templateFile = '')
     {
-        $content  = $this->fetch($templateFile);
+        $content = $this->fetch($templateFile);
         $htmlpath = !empty($htmlpath) ? $htmlpath : HTML_PATH;
         $htmlfile = $htmlpath . $htmlfile . C('HTML_FILE_SUFFIX');
         Storage::put($htmlfile, $content, 'html');
@@ -276,10 +276,10 @@ abstract class Controller
     {
         if (true === $ajax || IS_AJAX) {
             // AJAX提交
-            $data           = is_array($ajax) ? $ajax : array();
-            $data['info']   = $message;
+            $data = is_array($ajax) ? $ajax : array();
+            $data['info'] = $message;
             $data['status'] = $status;
-            $data['url']    = $jumpUrl;
+            $data['url'] = $jumpUrl;
             $this->ajaxReturn($data);
         }
         if (is_int($ajax)) {
@@ -342,5 +342,6 @@ abstract class Controller
         Hook::listen('action_end');
     }
 }
+
 // 设置控制器别名 便于升级
 class_alias('Think\Controller', 'Think\Action');

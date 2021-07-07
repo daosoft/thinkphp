@@ -238,7 +238,7 @@ class Dispatcher
 
     /**
      * 获得控制器的命名空间路径 便于插件机制访问
-     * @param  boolean $urlCase 是否转换成小写
+     * @param boolean $urlCase 是否转换成小写
      * @return string
      */
     private static function getSpace($urlCase)
@@ -251,8 +251,8 @@ class Dispatcher
 
     /**
      * 获得实际的控制器名称
-     * @param  array $paths path_info数组
-     * @param  boolean $urlCase 是否转换成小写
+     * @param array $paths path_info数组
+     * @param boolean $urlCase 是否转换成小写
      * @return string
      */
     private static function getController(&$paths, $urlCase)
@@ -300,8 +300,8 @@ class Dispatcher
 
     /**
      * 获得实际的操作名称
-     * @param  array $paths path_info数组
-     * @param  boolean $urlCase 是否转换成小写
+     * @param array $paths path_info数组
+     * @param boolean $urlCase 是否转换成小写
      * @return string
      */
     private static function getAction(&$paths, $urlCase)
@@ -350,7 +350,7 @@ class Dispatcher
 
     /**
      * 获得实际的模块名称
-     * @param  array $paths path_info数组
+     * @param array $paths path_info数组
      * @return string
      */
     private static function getModule(&$paths)

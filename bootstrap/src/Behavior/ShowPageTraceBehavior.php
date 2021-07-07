@@ -25,15 +25,15 @@ class ShowPageTraceBehavior
     {
         // 系统默认显示信息
         $files = get_included_files();
-        $info  = array();
+        $info = array();
         foreach ($files as $key => $file) {
             $info[] = $file . ' ( ' . number_format(filesize($file) / 1024, 2) . ' KB )';
         }
         $trace = array();
-        $base  = array(
+        $base = array(
             '请求信息' => date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']) . ' ' . $_SERVER['SERVER_PROTOCOL'] . ' ' . $_SERVER['REQUEST_METHOD'] . ' : ' . __SELF__,
             '运行时间' => $this->showTime(),
-            '吞吐率'    => number_format(1 / G('beginTime', 'viewEndTime'), 2) . 'req/s',
+            '吞吐率' => number_format(1 / G('beginTime', 'viewEndTime'), 2) . 'req/s',
             '内存开销' => MEMORY_LIMIT_ON ? number_format((memory_get_usage() - $GLOBALS['_startUseMems']) / 1024, 2) . ' kb' : '不支持',
             '查询信息' => N('db_query') . ' queries ' . N('db_write') . ' writes ',
             '文件加载' => count(get_included_files()),
@@ -47,7 +47,7 @@ class ShowPageTraceBehavior
             $base = array_merge($base, include $traceFile);
         }
         $debug = trace();
-        $tabs  = C('TRACE_PAGE_TABS', null, $this->tracePageTabs);
+        $tabs = C('TRACE_PAGE_TABS', null, $this->tracePageTabs);
         foreach ($tabs as $name => $title) {
             switch (strtoupper($name)) {
                 case 'BASE': // 基本信息
@@ -60,7 +60,7 @@ class ShowPageTraceBehavior
                     $name = strtoupper($name);
                     if (strpos($name, '|')) {
 // 多组信息
-                        $names  = explode('|', $name);
+                        $names = explode('|', $name);
                         $result = array();
                         foreach ($names as $name) {
                             $result += isset($debug[$name]) ? $debug[$name] : array();
@@ -74,7 +74,7 @@ class ShowPageTraceBehavior
         if ($save = C('PAGE_TRACE_SAVE')) {
             // 保存页面Trace日志
             if (is_array($save)) { // 选择选项卡保存
-                $tabs  = C('TRACE_PAGE_TABS', null, $this->tracePageTabs);
+                $tabs = C('TRACE_PAGE_TABS', null, $this->tracePageTabs);
                 $array = array();
                 foreach ($save as $tab) {
                     $array[] = $tabs[$tab];

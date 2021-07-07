@@ -12,13 +12,13 @@ class Html extends TagLib
     // 标签定义
     protected $tags = array(
         // 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
-        'editor'   => array('attr' => 'id,name,style,width,height,type', 'close' => 1),
-        'select'   => array('attr' => 'name,options,values,output,multiple,id,size,first,change,selected,dblclick', 'close' => 0),
-        'grid'     => array('attr' => 'id,pk,style,action,actionlist,show,datasource', 'close' => 0),
-        'list'     => array('attr' => 'id,pk,style,action,actionlist,show,datasource,checkbox', 'close' => 0),
+        'editor' => array('attr' => 'id,name,style,width,height,type', 'close' => 1),
+        'select' => array('attr' => 'name,options,values,output,multiple,id,size,first,change,selected,dblclick', 'close' => 0),
+        'grid' => array('attr' => 'id,pk,style,action,actionlist,show,datasource', 'close' => 0),
+        'list' => array('attr' => 'id,pk,style,action,actionlist,show,datasource,checkbox', 'close' => 0),
         'imagebtn' => array('attr' => 'id,name,value,type,style,click', 'close' => 0),
         'checkbox' => array('attr' => 'name,checkboxes,checked,separator', 'close' => 0),
-        'radio'    => array('attr' => 'name,radios,checked,separator', 'close' => 0),
+        'radio' => array('attr' => 'name,radios,checked,separator', 'close' => 0),
     );
 
     /**
@@ -30,10 +30,10 @@ class Html extends TagLib
      */
     public function _editor($tag, $content)
     {
-        $id     = !empty($tag['id']) ? $tag['id'] : '_editor';
-        $name   = $tag['name'];
-        $style  = !empty($tag['style']) ? $tag['style'] : '';
-        $width  = !empty($tag['width']) ? $tag['width'] : '100%';
+        $id = !empty($tag['id']) ? $tag['id'] : '_editor';
+        $name = $tag['name'];
+        $style = !empty($tag['style']) ? $tag['style'] : '';
+        $width = !empty($tag['width']) ? $tag['width'] : '100%';
         $height = !empty($tag['height']) ? $tag['height'] : '320px';
         //   $content    =   $tag['content'];
         $type = $tag['type'];
@@ -72,12 +72,12 @@ class Html extends TagLib
      */
     public function _imageBtn($tag)
     {
-        $name  = $tag['name']; //名称
+        $name = $tag['name']; //名称
         $value = $tag['value']; //文字
-        $id    = isset($tag['id']) ? $tag['id'] : ''; //ID
+        $id = isset($tag['id']) ? $tag['id'] : ''; //ID
         $style = isset($tag['style']) ? $tag['style'] : ''; //样式名
         $click = isset($tag['click']) ? $tag['click'] : ''; //点击
-        $type  = empty($tag['type']) ? 'button' : $tag['type']; //按钮类型
+        $type = empty($tag['type']) ? 'button' : $tag['type']; //按钮类型
 
         if (!empty($name)) {
             $parseStr = '<div class="' . $style . '" ><input type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '" onclick="' . $click . '" class="' . $name . ' imgButton"></div>';
@@ -97,12 +97,12 @@ class Html extends TagLib
      */
     public function _imgLink($tag)
     {
-        $name  = $tag['name']; //名称
-        $alt   = $tag['alt']; //文字
-        $id    = $tag['id']; //ID
+        $name = $tag['name']; //名称
+        $alt = $tag['alt']; //文字
+        $id = $tag['id']; //ID
         $style = $tag['style']; //样式名
         $click = $tag['click']; //点击
-        $type  = $tag['type']; //点击
+        $type = $tag['type']; //点击
         if (empty($type)) {
             $type = 'button';
         }
@@ -120,18 +120,18 @@ class Html extends TagLib
      */
     public function _select($tag)
     {
-        $name       = $tag['name'];
-        $options    = $tag['options'];
-        $values     = $tag['values'];
-        $output     = $tag['output'];
-        $multiple   = $tag['multiple'];
-        $id         = $tag['id'];
-        $size       = $tag['size'];
-        $first      = $tag['first'];
-        $selected   = $tag['selected'];
-        $style      = $tag['style'];
+        $name = $tag['name'];
+        $options = $tag['options'];
+        $values = $tag['values'];
+        $output = $tag['output'];
+        $multiple = $tag['multiple'];
+        $id = $tag['id'];
+        $size = $tag['size'];
+        $first = $tag['first'];
+        $selected = $tag['selected'];
+        $style = $tag['style'];
         $ondblclick = $tag['dblclick'];
-        $onchange   = $tag['change'];
+        $onchange = $tag['change'];
 
         if (!empty($multiple)) {
             $parseStr = '<select id="' . $id . '" name="' . $name . '" ondblclick="' . $ondblclick . '" onchange="' . $onchange . '" multiple="multiple" class="' . $style . '" size="' . $size . '" >';
@@ -177,13 +177,13 @@ class Html extends TagLib
      */
     public function _checkbox($tag)
     {
-        $name       = $tag['name'];
+        $name = $tag['name'];
         $checkboxes = $tag['checkboxes'];
-        $checked    = $tag['checked'];
-        $separator  = $tag['separator'];
+        $checked = $tag['checked'];
+        $separator = $tag['separator'];
         $checkboxes = $this->tpl->get($checkboxes);
-        $checked    = $this->tpl->get($checked) ? $this->tpl->get($checked) : $checked;
-        $parseStr   = '';
+        $checked = $this->tpl->get($checked) ? $this->tpl->get($checked) : $checked;
+        $parseStr = '';
         foreach ($checkboxes as $key => $val) {
             if ($checked == $key || in_array($key, $checked)) {
                 $parseStr .= '<input type="checkbox" checked="checked" name="' . $name . '[]" value="' . $key . '">' . $val . $separator;
@@ -203,13 +203,13 @@ class Html extends TagLib
      */
     public function _radio($tag)
     {
-        $name      = $tag['name'];
-        $radios    = $tag['radios'];
-        $checked   = $tag['checked'];
+        $name = $tag['name'];
+        $radios = $tag['radios'];
+        $checked = $tag['checked'];
         $separator = $tag['separator'];
-        $radios    = $this->tpl->get($radios);
-        $checked   = $this->tpl->get($checked) ? $this->tpl->get($checked) : $checked;
-        $parseStr  = '';
+        $radios = $this->tpl->get($radios);
+        $checked = $this->tpl->get($checked) ? $this->tpl->get($checked) : $checked;
+        $parseStr = '';
         foreach ($radios as $key => $val) {
             if ($checked == $key) {
                 $parseStr .= '<input type="radio" checked="checked" name="' . $name . '[]" value="' . $key . '">' . $val . $separator;
@@ -230,13 +230,13 @@ class Html extends TagLib
      */
     public function _grid($tag)
     {
-        $id         = $tag['id']; //表格ID
+        $id = $tag['id']; //表格ID
         $datasource = $tag['datasource']; //列表显示的数据源VoList名称
-        $pk         = empty($tag['pk']) ? 'id' : $tag['pk']; //主键名，默认为id
-        $style      = $tag['style']; //样式名
-        $name       = !empty($tag['name']) ? $tag['name'] : 'vo'; //Vo对象名
-        $action     = !empty($tag['action']) ? $tag['action'] : false; //是否显示功能操作
-        $key        = !empty($tag['key']) ? true : false;
+        $pk = empty($tag['pk']) ? 'id' : $tag['pk']; //主键名，默认为id
+        $style = $tag['style']; //样式名
+        $name = !empty($tag['name']) ? $tag['name'] : 'vo'; //Vo对象名
+        $action = !empty($tag['action']) ? $tag['action'] : false; //是否显示功能操作
+        $key = !empty($tag['key']) ? true : false;
         if (isset($tag['actionlist'])) {
             $actionlist = explode(',', trim($tag['actionlist'])); //指定功能列表
         }
@@ -378,15 +378,15 @@ class Html extends TagLib
      */
     public function _list($tag)
     {
-        $id         = $tag['id']; //表格ID
+        $id = $tag['id']; //表格ID
         $datasource = $tag['datasource']; //列表显示的数据源VoList名称
-        $pk         = empty($tag['pk']) ? 'id' : $tag['pk']; //主键名，默认为id
-        $style      = $tag['style']; //样式名
-        $name       = !empty($tag['name']) ? $tag['name'] : 'vo'; //Vo对象名
-        $action     = 'true' == $tag['action'] ? true : false; //是否显示功能操作
-        $key        = !empty($tag['key']) ? true : false;
-        $sort       = 'false' == $tag['sort'] ? false : true;
-        $checkbox   = $tag['checkbox']; //是否显示Checkbox
+        $pk = empty($tag['pk']) ? 'id' : $tag['pk']; //主键名，默认为id
+        $style = $tag['style']; //样式名
+        $name = !empty($tag['name']) ? $tag['name'] : 'vo'; //Vo对象名
+        $action = 'true' == $tag['action'] ? true : false; //是否显示功能操作
+        $key = !empty($tag['key']) ? true : false;
+        $sort = 'false' == $tag['sort'] ? false : true;
+        $checkbox = $tag['checkbox']; //是否显示Checkbox
         if (isset($tag['actionlist'])) {
             if (substr($tag['actionlist'], 0, 1) == '$') {
                 $actionlist = $this->tpl->get(substr($tag['actionlist'], 1));

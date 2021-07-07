@@ -9,14 +9,14 @@ use Think\Model;
  */
 class AdvModel extends Model
 {
-    protected $optimLock      = 'lock_version';
-    protected $returnType     = 'array';
-    protected $blobFields     = array();
-    protected $blobValues     = null;
+    protected $optimLock = 'lock_version';
+    protected $returnType = 'array';
+    protected $blobFields = array();
+    protected $blobValues = null;
     protected $serializeField = array();
-    protected $readonlyField  = array();
-    protected $_filter        = array();
-    protected $partition      = array();
+    protected $readonlyField = array();
+    protected $_filter = array();
+    protected $partition = array();
 
     public function __construct($name = '', $tablePrefix = '', $connection = '')
     {
@@ -169,8 +169,8 @@ class AdvModel extends Model
     /**
      * 检查乐观锁
      * @access protected
-     * @param inteter $id  当前主键
-     * @param array $data  当前数据
+     * @param inteter $id 当前主键
+     * @param array $data 当前数据
      * @return mixed
      */
     protected function checkLockVersion($id, &$data)
@@ -178,10 +178,10 @@ class AdvModel extends Model
         // 检查乐观锁
         $identify = $this->name . '_' . $id . '_lock_version';
         if ($this->optimLock && isset($_SESSION[$identify])) {
-            $lock_version        = $_SESSION[$identify];
-            $vo                  = $this->field($this->optimLock)->find($id);
+            $lock_version = $_SESSION[$identify];
+            $vo = $this->field($this->optimLock)->find($id);
             $_SESSION[$identify] = $lock_version;
-            $curr_version        = $vo[$this->optimLock];
+            $curr_version = $vo[$this->optimLock];
             if (isset($curr_version)) {
                 if ($curr_version > 0 && $lock_version != $curr_version) {
                     // 记录已经更新
@@ -226,7 +226,7 @@ class AdvModel extends Model
         if ($position >= 0) {
             // 正向查找
             $options['limit'] = $position . ',1';
-            $list             = $this->select($options);
+            $list = $this->select($options);
             return $list ? $list[0] : false;
         } else {
             // 逆序查找
@@ -271,8 +271,10 @@ class AdvModel extends Model
         }
 
         switch ($type) {
-            case 'array':return $data;
-            case 'object':return (object) $data;
+            case 'array':
+                return $data;
+            case 'object':
+                return (object)$data;
             default: // 允许用户自定义返回类型
                 if (class_exists($type)) {
                     return new $type($data);
@@ -394,7 +396,7 @@ class AdvModel extends Model
     {
         if (!empty($this->blobFields)) {
             foreach ($resultSet as $key => $result) {
-                $result          = $this->getBlobFields($result, $field);
+                $result = $this->getBlobFields($result, $field);
                 $resultSet[$key] = $result;
             }
         }
@@ -415,7 +417,7 @@ class AdvModel extends Model
             $id = $data[$pk];
             if (empty($field)) {
                 foreach ($this->blobFields as $field) {
-                    $identify     = $this->name . '/' . $id . '_' . $field;
+                    $identify = $this->name . '/' . $id . '_' . $field;
                     $data[$field] = F($identify);
                 }
                 return $data;
@@ -562,7 +564,7 @@ class AdvModel extends Model
      * 批处理执行SQL语句
      * 批处理的指令都认为是execute操作
      * @access public
-     * @param array $sql  SQL批处理指令
+     * @param array $sql SQL批处理指令
      * @return boolean
      */
     public function patchQuery($sql = array())
@@ -605,7 +607,7 @@ class AdvModel extends Model
                 case 'id':
                     // 按照id范围分表
                     $step = $this->partition['expr'];
-                    $seq  = floor($field / $step) + 1;
+                    $seq = floor($field / $step) + 1;
                     break;
                 case 'year':
                     // 按照年份分表

@@ -19,7 +19,7 @@ class Lite
     protected $lastInsID = null;
     // 返回或者影响记录数
     protected $numRows = 0;
-   	// 事物操作PDO实例
+    // 事物操作PDO实例
     protected $transPDO = null;
     // 事务指令数
     protected $transTimes = 0;
@@ -31,21 +31,21 @@ class Lite
     protected $_linkID = null;
     // 数据库连接参数配置
     protected $config = array(
-        'type'        => '', // 数据库类型
-        'hostname'    => '127.0.0.1', // 服务器地址
-        'database'    => '', // 数据库名
-        'username'    => '', // 用户名
-        'password'    => '', // 密码
-        'hostport'    => '', // 端口
-        'dsn'         => '', //
-        'params'      => array(), // 数据库连接参数
-        'charset'     => 'utf8', // 数据库编码默认采用utf8
-        'prefix'      => '', // 数据库表前缀
-        'debug'       => false, // 数据库调试模式
-        'deploy'      => 0, // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)
+        'type' => '', // 数据库类型
+        'hostname' => '127.0.0.1', // 服务器地址
+        'database' => '', // 数据库名
+        'username' => '', // 用户名
+        'password' => '', // 密码
+        'hostport' => '', // 端口
+        'dsn' => '', //
+        'params' => array(), // 数据库连接参数
+        'charset' => 'utf8', // 数据库编码默认采用utf8
+        'prefix' => '', // 数据库表前缀
+        'debug' => false, // 数据库调试模式
+        'deploy' => 0, // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)
         'rw_separate' => false, // 数据库读写是否分离 主从式有效
-        'master_num'  => 1, // 读写分离后 主服务器数量
-        'slave_no'    => '', // 指定从服务器序号
+        'master_num' => 1, // 读写分离后 主服务器数量
+        'slave_no' => '', // 指定从服务器序号
     );
     // 数据库表达式
     protected $comparison = array('eq' => '=', 'neq' => '<>', 'gt' => '>', 'egt' => '>=', 'lt' => '<', 'elt' => '<=', 'notlike' => 'NOT LIKE', 'like' => 'LIKE', 'in' => 'IN', 'notin' => 'NOT IN');
@@ -57,9 +57,9 @@ class Lite
     protected $executeTimes = 0;
     // PDO连接参数
     protected $options = array(
-        PDO::ATTR_CASE              => PDO::CASE_LOWER,
-        PDO::ATTR_ERRMODE           => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_ORACLE_NULLS      => PDO::NULL_NATURAL,
+        PDO::ATTR_CASE => PDO::CASE_LOWER,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_ORACLE_NULLS => PDO::NULL_NATURAL,
         PDO::ATTR_STRINGIFY_FETCHES => false,
     );
 
@@ -112,7 +112,8 @@ class Lite
      * @return string
      */
     protected function parseDsn($config)
-    {}
+    {
+    }
 
     /**
      * 释放查询结果
@@ -126,8 +127,8 @@ class Lite
     /**
      * 执行查询 返回数据集
      * @access public
-     * @param string $str  sql指令
-     * @param array $bind  参数绑定
+     * @param string $str sql指令
+     * @param array $bind 参数绑定
      * @return mixed
      */
     public function query($str, $bind = array())
@@ -139,8 +140,10 @@ class Lite
 
         $this->queryStr = $str;
         if (!empty($bind)) {
-            $that           = $this;
-            $this->queryStr = strtr($this->queryStr, array_map(function ($val) use ($that) {return '\'' . $that->escapeString($val) . '\'';}, $bind));
+            $that = $this;
+            $this->queryStr = strtr($this->queryStr, array_map(function ($val) use ($that) {
+                return '\'' . $that->escapeString($val) . '\'';
+            }, $bind));
         }
         //释放前次的查询结果
         if (!empty($this->PDOStatement)) {
@@ -177,8 +180,8 @@ class Lite
     /**
      * 执行语句
      * @access public
-     * @param string $str  sql指令
-     * @param array $bind  参数绑定
+     * @param string $str sql指令
+     * @param array $bind 参数绑定
      * @return integer
      */
     public function execute($str, $bind = array())
@@ -190,8 +193,10 @@ class Lite
 
         $this->queryStr = $str;
         if (!empty($bind)) {
-            $that           = $this;
-            $this->queryStr = strtr($this->queryStr, array_map(function ($val) use ($that) {return '\'' . $that->escapeString($val) . '\'';}, $bind));
+            $that = $this;
+            $this->queryStr = strtr($this->queryStr, array_map(function ($val) use ($that) {
+                return '\'' . $that->escapeString($val) . '\'';
+            }, $bind));
         }
         //释放前次的查询结果
         if (!empty($this->PDOStatement)) {
@@ -298,7 +303,7 @@ class Lite
     private function getResult()
     {
         //返回数据集
-        $result        = $this->PDOStatement->fetchAll(PDO::FETCH_ASSOC);
+        $result = $this->PDOStatement->fetchAll(PDO::FETCH_ASSOC);
         $this->numRows = count($result);
         return $result;
     }
@@ -342,7 +347,7 @@ class Lite
     public function error()
     {
         if ($this->PDOStatement) {
-            $error       = $this->PDOStatement->errorInfo();
+            $error = $this->PDOStatement->errorInfo();
             $this->error = $error[1] . ':' . $error[2];
         } else {
             $this->error = '';
@@ -362,7 +367,7 @@ class Lite
 
     /**
      * 获取最近一次查询的sql语句
-     * @param string $model  模型名
+     * @param string $model 模型名
      * @access public
      * @return string
      */
@@ -394,7 +399,7 @@ class Lite
     /**
      * SQL指令安全过滤
      * @access public
-     * @param string $str  SQL字符串
+     * @param string $str SQL字符串
      * @return string
      */
     public function escapeString($str)
@@ -405,7 +410,7 @@ class Lite
     /**
      * 设置当前操作模型
      * @access public
-     * @param string $model  模型名
+     * @param string $model 模型名
      * @return void
      */
     public function setModel($model)
@@ -416,7 +421,7 @@ class Lite
     /**
      * 数据库调试 记录当前SQL
      * @access protected
-     * @param boolean $start  调试开始标记 true 开始 false 结束
+     * @param boolean $start 调试开始标记 true 开始 false 结束
      */
     protected function debug($start)
     {
@@ -447,15 +452,14 @@ class Lite
             return $this->transPDO;
         }
 
-        if (!empty($this->config['deploy']))
-        // 采用分布式数据库
+        if (!empty($this->config['deploy'])) // 采用分布式数据库
         {
             $this->_linkID = $this->multiConnect($master);
         } else
-        // 默认单数据库
-        if (!$this->_linkID) {
-            $this->_linkID = $this->connect();
-        }
+            // 默认单数据库
+            if (!$this->_linkID) {
+                $this->_linkID = $this->connect();
+            }
 
     }
 
@@ -473,14 +477,13 @@ class Lite
         $_config['hostname'] = explode(',', $this->config['hostname']);
         $_config['hostport'] = explode(',', $this->config['hostport']);
         $_config['database'] = explode(',', $this->config['database']);
-        $_config['dsn']      = explode(',', $this->config['dsn']);
-        $_config['charset']  = explode(',', $this->config['charset']);
+        $_config['dsn'] = explode(',', $this->config['dsn']);
+        $_config['charset'] = explode(',', $this->config['charset']);
 
         // 数据库读写是否分离
         if ($this->config['rw_separate']) {
             // 主从式采用读写分离
-            if ($master)
-            // 主服务器写入
+            if ($master) // 主服务器写入
             {
                 $r = floor(mt_rand(0, $this->config['master_num'] - 1));
             } else {
@@ -502,8 +505,8 @@ class Lite
             'hostname' => isset($_config['hostname'][$r]) ? $_config['hostname'][$r] : $_config['hostname'][0],
             'hostport' => isset($_config['hostport'][$r]) ? $_config['hostport'][$r] : $_config['hostport'][0],
             'database' => isset($_config['database'][$r]) ? $_config['database'][$r] : $_config['database'][0],
-            'dsn'      => isset($_config['dsn'][$r]) ? $_config['dsn'][$r] : $_config['dsn'][0],
-            'charset'  => isset($_config['charset'][$r]) ? $_config['charset'][$r] : $_config['charset'][0],
+            'dsn' => isset($_config['dsn'][$r]) ? $_config['dsn'][$r] : $_config['dsn'][0],
+            'charset' => isset($_config['charset'][$r]) ? $_config['charset'][$r] : $_config['charset'][0],
         );
         return $this->connect($db_config, $r);
     }

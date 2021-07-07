@@ -30,6 +30,7 @@ class [MODEL]Model extends Model
 {
 
 }';
+
     // 检测应用目录是否需要自动创建
     public static function checkDir($module)
     {
@@ -128,12 +129,12 @@ class [MODEL]Model extends Model
     // 创建控制器类
     public static function buildController($module, $controllers)
     {
-        $list  = is_array($controllers) ? $controllers : explode(',', $controllers);
-        $hello = '$this->show(\'<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} body{ background: #fff; font-family: "微软雅黑"; color: #333;font-size:24px} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.8em; font-size: 36px } a,a:hover{color:blue;}</style><div style="padding: 24px 48px;"> <h1>:)</h1><p>欢迎使用 <b>ThinkPHP</b>！</p><br/>版本 V{$Think.version}</div><script type="text/javascript" src="http://ad.topthink.com/Public/static/client.js"></script><thinkad id="ad_55e75dfae343f5a1"></thinkad><script type="text/javascript" src="http://tajs.qq.com/stats?sId=9347272" charset="UTF-8"></script>\',\'utf-8\');';
+        $list = is_array($controllers) ? $controllers : explode(',', $controllers);
+        $hello = '$this->show(\'Hello\',\'utf-8\');';
 
         foreach ($list as $controller) {
             $hello = C('DEFAULT_CONTROLLER') == $controller ? $hello : '';
-            $file  = APP_PATH . $module . '/Controller/' . $controller . 'Controller' . EXT;
+            $file = APP_PATH . $module . '/Controller/' . $controller . 'Controller' . EXT;
             if (!is_file($file)) {
                 $content = str_replace(array('[MODULE]', '[CONTROLLER]', '[CONTENT]'), array($module, $controller, $hello), self::$controller);
                 if (!C('APP_USE_NAMESPACE')) {
@@ -178,7 +179,7 @@ class [MODEL]Model extends Model
             defined('DIR_SECURE_CONTENT') or define('DIR_SECURE_CONTENT', ' ');
             // 自动写入目录安全文件
             $content = DIR_SECURE_CONTENT;
-            $files   = explode(',', DIR_SECURE_FILENAME);
+            $files = explode(',', DIR_SECURE_FILENAME);
             foreach ($files as $filename) {
                 foreach ($dirs as $dir) {
                     file_put_contents($dir . $filename, $content);

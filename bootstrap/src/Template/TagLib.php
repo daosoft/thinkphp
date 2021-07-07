@@ -13,7 +13,7 @@ class TagLib
      * @var string
      * @access protected
      */
-    protected $xml  = '';
+    protected $xml = '';
     protected $tags = array(); // 标签定义
     /**
      * 标签库名称
@@ -59,7 +59,7 @@ class TagLib
     public function __construct()
     {
         $this->tagLib = strtolower(substr(get_class($this), 6));
-        $this->tpl    = \Think\Think::instance('Think\\Template');
+        $this->tpl = \Think\Think::instance('Think\\Template');
     }
 
     /**
@@ -72,12 +72,12 @@ class TagLib
     {
         //XML解析安全过滤
         $attr = str_replace('&', '___', $attr);
-        $xml  = '<tpl><tag ' . $attr . ' /></tpl>';
-        $xml  = simplexml_load_string($xml);
+        $xml = '<tpl><tag ' . $attr . ' /></tpl>';
+        $xml = simplexml_load_string($xml);
         if (!$xml) {
             E(L('_XML_TAG_ERROR_') . ' : ' . $attr);
         }
-        $xml = (array) ($xml->tag->attributes());
+        $xml = (array)($xml->tag->attributes());
         if (isset($xml['@attributes'])) {
             $array = array_change_key_case($xml['@attributes']);
             if ($array) {
@@ -153,7 +153,7 @@ class TagLib
             return $this->parseThinkVar($name);
         } elseif (strpos($name, '.')) {
             $vars = explode('.', $name);
-            $var  = array_shift($vars);
+            $var = array_shift($vars);
             switch (strtolower(C('TMPL_VAR_IDENTIFY'))) {
                 case 'array': // 识别为数组
                     $name = '$' . $var;
@@ -188,7 +188,7 @@ class TagLib
      * 用于标签属性里面的特殊模板变量解析
      * 格式 以 Think. 打头的变量属于特殊模板变量
      * @access public
-     * @param string $varStr  变量字符串
+     * @param string $varStr 变量字符串
      * @return string
      */
     public function parseThinkVar($varStr)
@@ -197,17 +197,20 @@ class TagLib
 //用于正则替换回调函数
             $varStr = $varStr[1];
         }
-        $vars     = explode('.', $varStr);
-        $vars[1]  = strtoupper(trim($vars[1]));
+        $vars = explode('.', $varStr);
+        $vars[1] = strtoupper(trim($vars[1]));
         $parseStr = '';
         if (count($vars) >= 3) {
             $vars[2] = trim($vars[2]);
             switch ($vars[1]) {
-                case 'SERVER':$parseStr = '$_SERVER[\'' . $vars[2] . '\']';
+                case 'SERVER':
+                    $parseStr = '$_SERVER[\'' . $vars[2] . '\']';
                     break;
-                case 'GET':$parseStr = '$_GET[\'' . $vars[2] . '\']';
+                case 'GET':
+                    $parseStr = '$_GET[\'' . $vars[2] . '\']';
                     break;
-                case 'POST':$parseStr = '$_POST[\'' . $vars[2] . '\']';
+                case 'POST':
+                    $parseStr = '$_POST[\'' . $vars[2] . '\']';
                     break;
                 case 'COOKIE':
                     if (isset($vars[3])) {
@@ -227,30 +230,41 @@ class TagLib
                         $parseStr = '$_SESSION[\'' . $vars[2] . '\']';
                     }
                     break;
-                case 'ENV':$parseStr = '$_ENV[\'' . $vars[2] . '\']';
+                case 'ENV':
+                    $parseStr = '$_ENV[\'' . $vars[2] . '\']';
                     break;
-                case 'REQUEST':$parseStr = '$_REQUEST[\'' . $vars[2] . '\']';
+                case 'REQUEST':
+                    $parseStr = '$_REQUEST[\'' . $vars[2] . '\']';
                     break;
-                case 'CONST':$parseStr = strtoupper($vars[2]);
+                case 'CONST':
+                    $parseStr = strtoupper($vars[2]);
                     break;
-                case 'LANG':$parseStr = 'L("' . $vars[2] . '")';
+                case 'LANG':
+                    $parseStr = 'L("' . $vars[2] . '")';
                     break;
-                case 'CONFIG':$parseStr = 'C("' . $vars[2] . '")';
+                case 'CONFIG':
+                    $parseStr = 'C("' . $vars[2] . '")';
                     break;
             }
         } else if (count($vars) == 2) {
             switch ($vars[1]) {
-                case 'NOW':$parseStr = "date('Y-m-d g:i a',time())";
+                case 'NOW':
+                    $parseStr = "date('Y-m-d g:i a',time())";
                     break;
-                case 'VERSION':$parseStr = 'THINK_VERSION';
+                case 'VERSION':
+                    $parseStr = 'THINK_VERSION';
                     break;
-                case 'TEMPLATE':$parseStr = 'C("TEMPLATE_NAME")';
+                case 'TEMPLATE':
+                    $parseStr = 'C("TEMPLATE_NAME")';
                     break;
-                case 'LDELIM':$parseStr = 'C("TMPL_L_DELIM")';
+                case 'LDELIM':
+                    $parseStr = 'C("TMPL_L_DELIM")';
                     break;
-                case 'RDELIM':$parseStr = 'C("TMPL_R_DELIM")';
+                case 'RDELIM':
+                    $parseStr = 'C("TMPL_R_DELIM")';
                     break;
-                default:if (defined($vars[1])) {
+                default:
+                    if (defined($vars[1])) {
                         $parseStr = $vars[1];
                     }
 

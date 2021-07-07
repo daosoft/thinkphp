@@ -21,22 +21,22 @@ class Redis extends Cache
             E(L('_NOT_SUPPORT_') . ':redis');
         }
         $options = array_merge(array(
-            'host'       => C('REDIS_HOST') ?: '127.0.0.1',
-            'port'       => C('REDIS_PORT') ?: 6379,
-            'password'   => C('REDIS_PASSWORD') ?: '',
-            'timeout'    => C('DATA_CACHE_TIMEOUT') ?: false,
+            'host' => C('REDIS_HOST') ?: '127.0.0.1',
+            'port' => C('REDIS_PORT') ?: 6379,
+            'password' => C('REDIS_PASSWORD') ?: '',
+            'timeout' => C('DATA_CACHE_TIMEOUT') ?: false,
             'persistent' => false,
         ), $options);
 
-        $this->options           = $options;
+        $this->options = $options;
         $this->options['expire'] = isset($options['expire']) ? $options['expire'] : C('DATA_CACHE_TIME');
         $this->options['prefix'] = isset($options['prefix']) ? $options['prefix'] : C('DATA_CACHE_PREFIX');
         $this->options['length'] = isset($options['length']) ? $options['length'] : 0;
-        $func                    = $options['persistent'] ? 'pconnect' : 'connect';
-        $this->handler           = new \Redis;
+        $func = $options['persistent'] ? 'pconnect' : 'connect';
+        $this->handler = new \Redis;
         false === $options['timeout'] ?
-        $this->handler->$func($options['host'], $options['port']) :
-        $this->handler->$func($options['host'], $options['port'], $options['timeout']);
+            $this->handler->$func($options['host'], $options['port']) :
+            $this->handler->$func($options['host'], $options['port'], $options['timeout']);
         if ('' != $options['password']) {
             $this->handler->auth($options['password']);
         }
@@ -51,7 +51,7 @@ class Redis extends Cache
     public function get($name)
     {
         N('cache_read', 1);
-        $value    = $this->handler->get($this->options['prefix'] . $name);
+        $value = $this->handler->get($this->options['prefix'] . $name);
         $jsonData = json_decode($value, true);
         return (null === $jsonData) ? $value : $jsonData; //检测是否为JSON数据 true 返回JSON解析数组, false返回源数据
     }
@@ -60,8 +60,8 @@ class Redis extends Cache
      * 写入缓存
      * @access public
      * @param string $name 缓存变量名
-     * @param mixed $value  存储数据
-     * @param integer $expire  有效时间（秒）
+     * @param mixed $value 存储数据
+     * @param integer $expire 有效时间（秒）
      * @return boolean
      */
     public function set($name, $value, $expire = null)

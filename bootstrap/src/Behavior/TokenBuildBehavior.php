@@ -12,8 +12,8 @@ class TokenBuildBehavior
     {
         if (C('TOKEN_ON')) {
             list($tokenName, $tokenKey, $tokenValue) = $this->getToken();
-            $input_token                             = '<input type="hidden" name="' . $tokenName . '" value="' . $tokenKey . '_' . $tokenValue . '" />';
-            $meta_token                              = '<meta name="' . $tokenName . '" content="' . $tokenKey . '_' . $tokenValue . '" />';
+            $input_token = '<input type="hidden" name="' . $tokenName . '" value="' . $tokenKey . '_' . $tokenValue . '" />';
+            $meta_token = '<meta name="' . $tokenName . '" content="' . $tokenKey . '_' . $tokenValue . '" />';
             if (strpos($content, '{__TOKEN__}')) {
                 // 指定表单令牌隐藏域位置
                 $content = str_replace('{__TOKEN__}', $input_token, $content);
@@ -41,7 +41,7 @@ class TokenBuildBehavior
 // 相同页面不重复生成session
             $tokenValue = $_SESSION[$tokenName][$tokenKey];
         } else {
-            $tokenValue                      = is_callable($tokenType) ? $tokenType(microtime(true)) : md5(microtime(true));
+            $tokenValue = is_callable($tokenType) ? $tokenType(microtime(true)) : md5(microtime(true));
             $_SESSION[$tokenName][$tokenKey] = $tokenValue;
             if (IS_AJAX && C('TOKEN_RESET', null, true)) {
                 header($tokenName . ': ' . $tokenKey . '_' . $tokenValue);

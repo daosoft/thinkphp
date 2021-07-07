@@ -139,7 +139,7 @@ class App
                     default:
                         $vars = $_GET;
                 }
-                $params         = $method->getParameters();
+                $params = $method->getParameters();
                 $paramsBindType = C('URL_PARAMS_BIND_TYPE');
                 foreach ($params as $param) {
                     $name = $param->getName();

@@ -37,14 +37,14 @@ class Mysqli
      */
     public function open($savePath, $sessName)
     {
-        $this->lifeTime     = C('SESSION_EXPIRE') ? C('SESSION_EXPIRE') : ini_get('session.gc_maxlifetime');
+        $this->lifeTime = C('SESSION_EXPIRE') ? C('SESSION_EXPIRE') : ini_get('session.gc_maxlifetime');
         $this->sessionTable = C('SESSION_TABLE') ? C('SESSION_TABLE') : C("DB_PREFIX") . "session";
         //分布式数据库
         $host = explode(',', C('DB_HOST'));
         $port = explode(',', C('DB_PORT'));
         $name = explode(',', C('DB_NAME'));
         $user = explode(',', C('DB_USER'));
-        $pwd  = explode(',', C('DB_PWD'));
+        $pwd = explode(',', C('DB_PWD'));
         if (1 == C('DB_DEPLOY_TYPE')) {
             //读写分离
             if (C('DB_RW_SEPARATE')) {
@@ -89,7 +89,7 @@ class Mysqli
             }
         }
         //从数据库链接
-        $r      = floor(mt_rand(0, count($host) - 1));
+        $r = floor(mt_rand(0, count($host) - 1));
         $hander = mysqli_connect(
             $host[$r] . (isset($port[$r]) ? ':' . $port[$r] : ':' . $port[0]),
             isset($user[$r]) ? $user[$r] : $user[0],
@@ -129,7 +129,7 @@ class Mysqli
     public function read($sessID)
     {
         $hander = is_array($this->hander) ? $this->hander[1] : $this->hander;
-        $res    = mysqli_query($hander, "SELECT session_data AS data FROM " . $this->sessionTable . " WHERE session_id = '$sessID'   AND session_expire >" . time());
+        $res = mysqli_query($hander, "SELECT session_data AS data FROM " . $this->sessionTable . " WHERE session_id = '$sessID'   AND session_expire >" . time());
         if ($res) {
             $row = mysqli_fetch_assoc($res);
             return $row['data'];

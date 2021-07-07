@@ -80,8 +80,7 @@ class Think
             }
 
             // 加载应用行为定义
-            if (is_file(CONF_PATH . 'tags.php'))
-            // 允许应用增加开发模式配置定义
+            if (is_file(CONF_PATH . 'tags.php')) // 允许应用增加开发模式配置定义
             {
                 Hook::import(include CONF_PATH . 'tags.php');
             }
@@ -167,7 +166,7 @@ class Think
             } else {
                 // 检测自定义命名空间 否则就以模块为命名空间
                 $namespace = C('AUTOLOAD_NAMESPACE');
-                $path      = isset($namespace[$name]) ? dirname($namespace[$name]) . '/' : APP_PATH;
+                $path = isset($namespace[$name]) ? dirname($namespace[$name]) . '/' : APP_PATH;
             }
             $filename = $path . str_replace('\\', '/', $class) . EXT;
             if (is_file($filename)) {
@@ -188,8 +187,7 @@ class Think
             }
             // 根据自动加载路径设置进行尝试搜索
             foreach (explode(',', C('APP_AUTOLOAD_PATH')) as $path) {
-                if (import($path . '.' . $class))
-                // 如果加载类成功则返回
+                if (import($path . '.' . $class)) // 如果加载类成功则返回
                 {
                     return;
                 }
@@ -231,9 +229,9 @@ class Think
      */
     public static function appException($e)
     {
-        $error            = array();
+        $error = array();
         $error['message'] = $e->getMessage();
-        $trace            = $e->getTrace();
+        $trace = $e->getTrace();
         if ('E' == $trace[0]['function']) {
             $error['file'] = $trace[0]['file'];
             $error['line'] = $trace[0]['line'];
@@ -310,10 +308,10 @@ class Think
         if (APP_DEBUG || IS_CLI) {
             //调试模式下输出错误信息
             if (!is_array($error)) {
-                $trace        = debug_backtrace();
+                $trace = debug_backtrace();
                 $e['message'] = $error;
-                $e['file']    = $trace[0]['file'];
-                $e['line']    = $trace[0]['line'];
+                $e['file'] = $trace[0]['file'];
+                $e['line'] = $trace[0]['line'];
                 ob_start();
                 debug_print_backtrace();
                 $e['trace'] = ob_get_clean();
@@ -329,7 +327,7 @@ class Think
             if (!empty($error_page)) {
                 redirect($error_page);
             } else {
-                $message      = is_array($error) ? $error['message'] : $error;
+                $message = is_array($error) ? $error['message'] : $error;
                 $e['message'] = C('SHOW_ERROR_MSG') ? $message : C('ERROR_MESSAGE');
             }
         }
@@ -354,7 +352,7 @@ class Think
             // 获取trace信息
             return $_trace;
         } else {
-            $info  = ($label ? $label . ':' : '') . print_r($value, true);
+            $info = ($label ? $label . ':' : '') . print_r($value, true);
             $level = strtoupper($level);
 
             if ((defined('IS_AJAX') && IS_AJAX) || !C('SHOW_PAGE_TRACE') || $record) {

@@ -5,7 +5,9 @@ namespace Org\Util;
 /**
  * 日期时间操作类
  */
+
 use Org\Util\Date as Date;
+
 class Date
 {
 
@@ -120,7 +122,7 @@ class Date
     /**
      * 架构函数
      * 创建一个Date对象
-     * @param mixed $date  日期
+     * @param mixed $date 日期
      * @static
      * @access public
      */
@@ -184,27 +186,27 @@ class Date
      * 日期参数设置
      * @static
      * @access public
-     * @param integer $date  日期时间戳
+     * @param integer $date 日期时间戳
      * @return void
      */
     public function setDate($date)
     {
-        $dateArray    = getdate($date);
-        $this->date   = $dateArray[0]; //时间戳
+        $dateArray = getdate($date);
+        $this->date = $dateArray[0]; //时间戳
         $this->second = $dateArray["seconds"]; //秒
         $this->minute = $dateArray["minutes"]; //分
-        $this->hour   = $dateArray["hours"]; //时
-        $this->day    = $dateArray["mday"]; //日
-        $this->month  = $dateArray["mon"]; //月
-        $this->year   = $dateArray["year"]; //年
+        $this->hour = $dateArray["hours"]; //时
+        $this->day = $dateArray["mday"]; //日
+        $this->month = $dateArray["mon"]; //月
+        $this->year = $dateArray["year"]; //年
 
-        $this->weekday  = $dateArray["wday"]; //星期 0～6
+        $this->weekday = $dateArray["wday"]; //星期 0～6
         $this->cWeekday = '星期' . $this->Week[$this->weekday]; //$dateArray["weekday"];    //星期完整表示
-        $this->yDay     = $dateArray["yday"]; //一年中的天数 0－365
-        $this->cMonth   = $dateArray["month"]; //月份的完整表示
+        $this->yDay = $dateArray["yday"]; //一年中的天数 0－365
+        $this->cMonth = $dateArray["month"]; //月份的完整表示
 
         $this->CDATE = $this->format("%Y-%m-%d"); //日期表示
-        $this->YMD   = $this->format("%Y%m%d"); //简单日期
+        $this->YMD = $this->format("%Y%m%d"); //简单日期
         $this->CTIME = $this->format("%H:%M:%S"); //时间表示
 
         return;
@@ -214,7 +216,7 @@ class Date
      * 日期格式化
      * 默认返回 1970-01-01 11:30:45 格式
      * @access public
-     * @param string $format  格式化参数
+     * @param string $format 格式化参数
      * @return string
      */
     public function format($format = "%Y-%m-%d %H:%M:%S")
@@ -247,15 +249,15 @@ class Date
      * @static
      * @access public
      * @param mixed $date 要比较的日期
-     * @param string $elaps  比较跨度
+     * @param string $elaps 比较跨度
      * @return integer
      */
     public function dateDiff($date, $elaps = "d")
     {
-        $__DAYS_PER_WEEK__    = (7);
-        $__DAYS_PER_MONTH__   = (30);
-        $__DAYS_PER_YEAR__    = (365);
-        $__HOURS_IN_A_DAY__   = (24);
+        $__DAYS_PER_WEEK__ = (7);
+        $__DAYS_PER_MONTH__ = (30);
+        $__DAYS_PER_YEAR__ = (365);
+        $__HOURS_IN_A_DAY__ = (24);
         $__MINUTES_IN_A_DAY__ = (1440);
         $__SECONDS_IN_A_DAY__ = (86400);
         //计算天数差
@@ -297,15 +299,15 @@ class Date
             static $_diff = array('y' => '年', 'M' => '个月', 'd' => '天', 'w' => '周', 's' => '秒', 'h' => '小时', 'm' => '分钟');
             return ceil($this->dateDiff($time, $precision)) . $_diff[$precision] . '前';
         }
-        $diff          = abs($this->parse($time) - $this->date);
+        $diff = abs($this->parse($time) - $this->date);
         static $chunks = array(array(31536000, '年'), array(2592000, '个月'), array(604800, '周'), array(86400, '天'), array(3600, '小时'), array(60, '分钟'), array(1, '秒'));
-        $count         = 0;
-        $since         = '';
+        $count = 0;
+        $since = '';
         for ($i = 0; $i < count($chunks); $i++) {
             if ($diff >= $chunks[$i][0]) {
                 $num = floor($diff / $chunks[$i][0]);
                 $since .= sprintf('%d' . $chunks[$i][1], $num);
-                $diff = (int) ($diff - $chunks[$i][0] * $num);
+                $diff = (int)($diff - $chunks[$i][0] * $num);
                 $count++;
                 if (!$precision || $count >= $precision) {
                     break;
@@ -412,17 +414,17 @@ class Date
      *    s    - 秒
      * @access public
      * @param integer $number 间隔数目
-     * @param string $interval  比较类型
+     * @param string $interval 比较类型
      * @return Date
      */
     public function dateAdd($number = 0, $interval = "d")
     {
-        $hours   = $this->hour;
+        $hours = $this->hour;
         $minutes = $this->minute;
         $seconds = $this->second;
-        $month   = $this->month;
-        $day     = $this->day;
-        $year    = $this->year;
+        $month = $this->month;
+        $day = $this->day;
+        $year = $this->year;
 
         switch ($interval) {
             case "yyyy":
@@ -488,9 +490,11 @@ class Date
     public function numberToCh($number)
     {
         $number = intval($number);
-        $array  = array('一', '二', '三', '四', '五', '六', '七', '八', '九', '十');
-        $str    = '';
-        if (0 == $number) {$str .= "十";}
+        $array = array('一', '二', '三', '四', '五', '六', '七', '八', '九', '十');
+        $str = '';
+        if (0 == $number) {
+            $str .= "十";
+        }
         if ($number < 10) {
             $str .= $array[$number - 1];
         } elseif ($number < 20) {
@@ -514,7 +518,7 @@ class Date
     public function yearToCh($yearStr, $flag = false)
     {
         $array = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
-        $str   = $flag ? '公元' : '';
+        $str = $flag ? '公元' : '';
         for ($i = 0; $i < 4; $i++) {
             $str .= $array[substr($yearStr, $i, 1)];
         }
@@ -527,20 +531,20 @@ class Date
      *
      * @static
      * @access public
-     * @param string $type  获取信息类型
+     * @param string $type 获取信息类型
      * @return string
      */
     public function magicInfo($type)
     {
         $result = '';
-        $m      = $this->month;
-        $y      = $this->year;
-        $d      = $this->day;
+        $m = $this->month;
+        $y = $this->year;
+        $d = $this->day;
 
         switch ($type) {
             case 'XZ': //星座
                 $XZDict = array('摩羯', '宝瓶', '双鱼', '白羊', '金牛', '双子', '巨蟹', '狮子', '处女', '天秤', '天蝎', '射手');
-                $Zone   = array(1222, 122, 222, 321, 421, 522, 622, 722, 822, 922, 1022, 1122, 1222);
+                $Zone = array(1222, 122, 222, 321, 421, 522, 622, 722, 822, 922, 1022, 1122, 1222);
                 if ((100 * $m + $d) >= $Zone[0] || (100 * $m + $d) < $Zone[1]) {
                     $i = 0;
                 } else {
@@ -560,7 +564,7 @@ class Date
                     array('甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'),
                     array('子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'),
                 );
-                $i      = $y - 1900 + 36;
+                $i = $y - 1900 + 36;
                 $result = $GZDict[0][$i % 10] . $GZDict[1][$i % 12];
                 break;
 

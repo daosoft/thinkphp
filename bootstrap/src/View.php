@@ -153,7 +153,7 @@ class View
         if (APP_DEBUG && C('PARSE_VAR')) {
             // debug模式时，将后台分配变量输出到浏览器控制台
             $parseVar = empty($this->tVar) ? json_encode(array()) : json_encode($this->tVar);
-            $content  = $content . '<script type="text/javascript">var PARSE_VAR = ' . $parseVar . ';</script>';
+            $content = $content . '<script type="text/javascript">var PARSE_VAR = ' . $parseVar . ';</script>';
         }
         // 输出模板文件
         return $content;
@@ -170,7 +170,7 @@ class View
         if (is_file($template)) {
             return $template;
         }
-        $depr     = C('TMPL_FILE_DEPR');
+        $depr = C('TMPL_FILE_DEPR');
         $template = str_replace(':', $depr, $template);
 
         // 获取当前模块
@@ -200,7 +200,7 @@ class View
     /**
      * 获取当前的模板路径
      * @access protected
-     * @param  string $module 模块名
+     * @param string $module 模块名
      * @return string
      */
     protected function getThemePath($module = MODULE_NAME)
@@ -219,7 +219,7 @@ class View
     /**
      * 设置当前输出的模板主题
      * @access public
-     * @param  mixed $theme 主题名称
+     * @param mixed $theme 主题名称
      * @return View
      */
     public function theme($theme)

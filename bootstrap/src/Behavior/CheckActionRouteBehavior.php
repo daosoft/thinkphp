@@ -56,8 +56,8 @@ class CheckActionRouteBehavior
     // 检测URL和规则路由是否匹配
     private function checkUrlMatch($regx, $rule)
     {
-        $m1    = explode('/', $regx);
-        $m2    = explode('/', $rule);
+        $m1 = explode('/', $regx);
+        $m2 = explode('/', $rule);
         $match = true; // 是否匹配
         foreach ($m2 as $key => $val) {
             if (':' == substr($val, 0, 1)) {
@@ -118,7 +118,7 @@ class CheckActionRouteBehavior
         $paths = explode('/', $regx);
         // 解析路由规则
         $matches = array();
-        $rule    = explode('/', $rule);
+        $rule = explode('/', $rule);
         foreach ($rule as $item) {
             if (0 === strpos($item, ':')) {
                 // 动态变量获取
@@ -139,7 +139,7 @@ class CheckActionRouteBehavior
             // 路由重定向跳转
             if (strpos($url, ':')) { // 传递动态参数
                 $values = array_values($matches);
-                $url    = preg_replace('/:(\d+)/e', '$values[\\1-1]', $url);
+                $url = preg_replace('/:(\d+)/e', '$values[\\1-1]', $url);
             }
             header("Location: $url", true, (is_array($route) && isset($route[1])) ? $route[1] : 301);
             exit;
