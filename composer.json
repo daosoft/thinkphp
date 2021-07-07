@@ -2,16 +2,19 @@
     "name": "daosoft/thinkphp",
     "type": "project",
     "description": "The ThinkPHP Framework",
-    "keywords": ["framework","thinkphp","daosoft"],
-    "homepage": "http://thinkphp.cn/",
+    "keywords": [
+        "framework",
+        "thinkphp",
+        "daosoft"
+    ],
     "license": "Apache-2.0",
     "require": {
-        "php": "^5.3"
+        "php": "^5.3",
+        "thinkphp/framework": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Think\\": "bootstrap/src"
+            "App\\": "app/"
         }
     },
     "config": {
@@ -20,5 +23,11 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": {
+        "local": {
+            "type": "path",
+            "url": "package/framework"
+        }
+    }
 }

@@ -1,0 +1,22 @@
+{
+    "name": "thinkphp/framework",
+    "description": "The ThinkPHP Framework",
+    "license": "Apache-2.0",
+    "require": {
+        "php": "^5.3",
+        "filp/whoops": "^1.11",
+        "nesbot/carbon": "^1.39"
+    },
+    "autoload": {
+        "psr-4": {
+            "Think\\": "src"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
