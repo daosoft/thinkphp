@@ -1,1 +1,9 @@
-.idea
+/node_modules
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+*.lock
+*.log
