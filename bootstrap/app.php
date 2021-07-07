@@ -1,5 +1,10 @@
 <?php
 
+// 检测PHP环境
+if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+    die('require PHP > 5.3.0 !');
+}
+
 // 记录开始运行时间
 $GLOBALS['_beginTime'] = microtime(true);
 // 记录内存初始使用
@@ -18,11 +23,11 @@ const URL_REWRITE  = 2; //REWRITE模式
 const URL_COMPAT   = 3; // 兼容模式
 
 // 类文件后缀
-const EXT = '.class.php';
+const EXT = '.php';
 
 // 系统常量定义
 defined('THINK_PATH') or define('THINK_PATH', __DIR__ . '/');
-defined('APP_PATH') or define('APP_PATH', dirname($_SERVER['SCRIPT_FILENAME']) . '/');
+defined('APP_PATH') or define('APP_PATH', dirname(__DIR__) . '/app/');
 defined('APP_STATUS') or define('APP_STATUS', ''); // 应用状态 加载对应的配置文件
 defined('APP_DEBUG') or define('APP_DEBUG', false); // 是否调试模式
 defined('APP_MODE') or define('APP_MODE', 'common'); // 应用模式 默认为普通模式
@@ -73,7 +78,4 @@ if (!IS_CLI) {
     }
 }
 
-// 加载核心Think类
-require CORE_PATH . 'Think' . EXT;
-// 应用初始化
-Think\Think::start();
+class_alias('Think\Think', 'App');
