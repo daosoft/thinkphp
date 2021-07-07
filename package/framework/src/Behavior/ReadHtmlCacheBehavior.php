@@ -120,7 +120,7 @@ class ReadHtmlCacheBehavior
      */
     public static function checkHTMLCache($cacheFile = '', $cacheTime = '')
     {
-        if (!is_file($cacheFile) && 'sae' != APP_MODE) {
+        if (!is_file($cacheFile)) {
             return false;
         } elseif (filemtime(\Think\Think::instance('Think\View')->parseTemplate()) > Storage::get($cacheFile, 'mtime', 'html')) {
             // 模板文件如果更新静态文件需要更新

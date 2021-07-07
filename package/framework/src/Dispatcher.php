@@ -157,11 +157,6 @@ class Dispatcher
                 C(load_config(MODULE_PATH . 'Conf/config_' . APP_MODE . CONF_EXT));
             }
 
-            // 当前应用状态对应的配置文件
-            if (APP_STATUS && is_file(MODULE_PATH . 'Conf/' . APP_STATUS . CONF_EXT)) {
-                C(load_config(MODULE_PATH . 'Conf/' . APP_STATUS . CONF_EXT));
-            }
-
             // 加载模块别名定义
             if (is_file(MODULE_PATH . 'Conf/alias.php')) {
                 Think::addMap(include MODULE_PATH . 'Conf/alias.php');

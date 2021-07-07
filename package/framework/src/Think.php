@@ -21,6 +21,8 @@ class Think
      */
     public static function start()
     {
+        define('CORE_PATH', __DIR__ . '/');
+
         // 注册AUTOLOAD方法
         spl_autoload_register('Think\Think::autoload');
         // 设定错误和异常处理
@@ -101,11 +103,6 @@ class Think
                 }
 
             }
-        }
-
-        // 读取当前应用状态对应的配置文件
-        if (APP_STATUS && is_file(CONF_PATH . APP_STATUS . CONF_EXT)) {
-            C(include CONF_PATH . APP_STATUS . CONF_EXT);
         }
 
         // 设置系统时区
