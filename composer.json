@@ -9,8 +9,8 @@
     ],
     "license": "Apache-2.0",
     "require": {
-        "php": "^5.3",
-        "thinkphp/framework": "dev-master"
+        "php": "^7.3|^8.0",
+        "thinkphp/framework": "4.0.x-dev"
     },
     "autoload": {
         "psr-4": {

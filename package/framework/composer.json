@@ -3,9 +3,12 @@
     "description": "The ThinkPHP Framework",
     "license": "Apache-2.0",
     "require": {
-        "php": "^5.3",
-        "filp/whoops": "^1.11",
-        "nesbot/carbon": "^1.39"
+        "php": "^7.3|^8.0",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "filp/whoops": "^2.13",
+        "nesbot/carbon": "^2.50"
     },
     "autoload": {
         "psr-4": {
