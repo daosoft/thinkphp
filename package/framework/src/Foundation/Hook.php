@@ -103,7 +103,6 @@ class Hook
                 trace('[ ' . $tag . ' ] --END-- [ RunTime:' . G($tag . 'Start', $tag . 'End', 6) . 's ]', '', 'INFO');
             }
         }
-        return;
     }
 
     /**

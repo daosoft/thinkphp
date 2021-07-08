@@ -186,29 +186,6 @@ function trace($value = '[think]', $label = '', $level = 'DEBUG', $record = fals
 }
 
 /**
- * 编译文件
- * @param string $filename 文件名
- * @return string
- */
-function compile($filename)
-{
-    $content = php_strip_whitespace($filename);
-    $content = trim(substr($content, 5));
-    // 替换预编译指令
-    $content = preg_replace('/\/\/\[RUNTIME\](.*?)\/\/\[\/RUNTIME\]/s', '', $content);
-    if (0 === strpos($content, 'namespace')) {
-        $content = preg_replace('/namespace\s(.*?);/', 'namespace \\1{', $content, 1);
-    } else {
-        $content = 'namespace {' . $content;
-    }
-    if ('?>' == substr($content, -2)) {
-        $content = substr($content, 0, -2);
-    }
-
-    return $content . '}';
-}
-
-/**
  * 获取模版文件 格式 资源://模块@主题/控制器/操作
  * @param string $template 模版资源地址
  * @param string $layer 视图层（目录）名称
@@ -216,7 +193,6 @@ function compile($filename)
  */
 function T($template = '', $layer = '')
 {
-
     // 解析模版资源地址
     if (false === strpos($template, '://')) {
         $template = 'http://' . str_replace(':', '/', $template);
@@ -593,39 +569,6 @@ function load($name, $baseUrl = '', $ext = '.php')
 }
 
 /**
- * 实例化模型类 格式 [资源://][模块/]模型
- * @param string $name 资源地址
- * @param string $layer 模型层名称
- * @return Think\Model
- */
-function D($name = '', $layer = '')
-{
-    if (empty($name)) {
-        return new Think\Model;
-    }
-
-    static $_model = array();
-    $layer = $layer ?: C('DEFAULT_M_LAYER');
-    if (isset($_model[$name . $layer])) {
-        return $_model[$name . $layer];
-    }
-
-    $class = parse_res_name($name, $layer);
-    if (class_exists($class)) {
-        $model = new $class(basename($name));
-    } elseif (false === strpos($name, '/')) {
-        // 自动加载公共模块下面的模型
-        $class = '\\Common\\' . $layer . '\\' . $name . $layer;
-        $model = class_exists($class) ? new $class($name) : new Think\Model($name);
-    } else {
-        Think\Log::record('D方法实例化没找到模型类' . $class, Think\Log::NOTICE);
-        $model = new Think\Model(basename($name));
-    }
-    $_model[$name . $layer] = $model;
-    return $model;
-}
-
-/**
  * 实例化一个没有模型文件的Model
  * @param string $name Model名称 支持指定基础模型 例如 MongoModel:User
  * @param string $tablePrefix 表前缀
@@ -830,24 +773,6 @@ function strip_whitespace($content)
         }
     }
     return $stripStr;
-}
-
-/**
- * 自定义异常处理
- * @param string $msg 异常消息
- * @param string $type 异常类型 默认为Think\Exception
- * @param integer $code 异常代码 默认为0
- * @return void
- */
-function throw_exception($msg, $type = 'Think\\Exception', $code = 0)
-{
-    Think\Log::record('建议使用E方法替代throw_exception', Think\Log::NOTICE);
-    if (class_exists($type, false)) {
-        throw new $type($msg, $code);
-    } else {
-        Think\Think::halt($msg);
-    }
-    // 异常类型不存在则输出错误信息字串
 }
 
 /**
