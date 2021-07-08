@@ -17,10 +17,10 @@ if (MEMORY_LIMIT_ON) {
 const THINK_VERSION = '4.0.0';
 
 // URL 模式定义
-const URL_COMMON   = 0; //普通模式
+const URL_COMMON = 0; //普通模式
 const URL_PATHINFO = 1; //PATHINFO模式
-const URL_REWRITE  = 2; //REWRITE模式
-const URL_COMPAT   = 3; // 兼容模式
+const URL_REWRITE = 2; //REWRITE模式
+const URL_COMPAT = 3; // 兼容模式
 
 // 类文件后缀
 const EXT = '.php';

@@ -5,24 +5,26 @@ namespace Think\Cache\Driver;
 use Think\Cache;
 
 /**
- * 文件类型缓存类
+ * Class File
+ * @package Think\Cache\Driver
  */
 class File extends Cache
 {
-
     /**
-     * 架构函数
-     * @access public
+     * File constructor.
+     * @param array $options
      */
-    public function __construct($options = array())
+    public function __construct(array $options = array())
     {
         if (!empty($options)) {
             $this->options = $options;
         }
+
         $this->options['temp'] = !empty($options['temp']) ? $options['temp'] : C('DATA_CACHE_PATH');
-        $this->options['prefix'] = isset($options['prefix']) ? $options['prefix'] : C('DATA_CACHE_PREFIX');
-        $this->options['expire'] = isset($options['expire']) ? $options['expire'] : C('DATA_CACHE_TIME');
-        $this->options['length'] = isset($options['length']) ? $options['length'] : 0;
+        $this->options['prefix'] = $options['prefix'] ?? C('DATA_CACHE_PREFIX');
+        $this->options['expire'] = $options['expire'] ?? C('DATA_CACHE_TIME');
+        $this->options['length'] = $options['length'] ?? 0;
+
         if (substr($this->options['temp'], -1) != '/') {
             $this->options['temp'] .= '/';
         }
@@ -32,8 +34,6 @@ class File extends Cache
 
     /**
      * 初始化检查
-     * @access private
-     * @return boolean
      */
     private function init()
     {
