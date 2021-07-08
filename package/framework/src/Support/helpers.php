@@ -615,11 +615,7 @@ function D($name = '', $layer = '')
         $model = new $class(basename($name));
     } elseif (false === strpos($name, '/')) {
         // 自动加载公共模块下面的模型
-        if (!C('APP_USE_NAMESPACE')) {
-            import('Common/' . $layer . '/' . $class);
-        } else {
-            $class = '\\Common\\' . $layer . '\\' . $name . $layer;
-        }
+        $class = '\\Common\\' . $layer . '\\' . $name . $layer;
         $model = class_exists($class) ? new $class($name) : new Think\Model($name);
     } else {
         Think\Log::record('D方法实例化没找到模型类' . $class, Think\Log::NOTICE);
@@ -675,19 +671,14 @@ function parse_res_name($name, $layer, $level = 1)
         $module = defined('MODULE_NAME') ? MODULE_NAME : '';
     }
     $array = explode('/', $name);
-    if (!C('APP_USE_NAMESPACE')) {
-        $class = parse_name($name, 1);
-        import($module . '/' . $layer . '/' . $class . $layer);
-    } else {
-        $class = $module . '\\' . $layer;
-        foreach ($array as $name) {
-            $class .= '\\' . parse_name($name, 1);
-        }
-        // 导入资源类库
-        if ($extend) {
-            // 扩展资源
-            $class = $extend . '\\' . $class;
-        }
+    $class = $module . '\\' . $layer;
+    foreach ($array as $name) {
+        $class .= '\\' . parse_name($name, 1);
+    }
+    // 导入资源类库
+    if ($extend) {
+        // 扩展资源
+        $class = $extend . '\\' . $class;
     }
     return $class . $layer;
 }
@@ -701,17 +692,13 @@ function parse_res_name($name, $layer, $level = 1)
 function controller($name, $path = '')
 {
     $layer = C('DEFAULT_C_LAYER');
-    if (!C('APP_USE_NAMESPACE')) {
-        $class = parse_name($name, 1) . $layer;
-        import(MODULE_NAME . '/' . $layer . '/' . $class);
-    } else {
-        $class = ($path ? basename(ADDON_PATH) . '\\' . $path : MODULE_NAME) . '\\' . $layer;
-        $array = explode('/', $name);
-        foreach ($array as $name) {
-            $class .= '\\' . parse_name($name, 1);
-        }
-        $class .= $layer;
+    $class = ($path ? basename(ADDON_PATH) . '\\' . $path : MODULE_NAME) . '\\' . $layer;
+    $array = explode('/', $name);
+    foreach ($array as $name) {
+        $class .= '\\' . parse_name($name, 1);
     }
+    $class .= $layer;
+
     if (class_exists($class)) {
         return new $class();
     } else {

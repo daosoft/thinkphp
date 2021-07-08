@@ -61,7 +61,6 @@ KEY `group_id` (`group_id`)
 
 class Auth
 {
-
     //默认配置
     protected $_config = array(
         'AUTH_ON' => true, // 认证开关
